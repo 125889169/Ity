@@ -1,3 +1,12 @@
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.local
+
 /node_modules
 /public/hot
 /public/storage
