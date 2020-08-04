@@ -5,7 +5,7 @@
 4. ` php artisan jwt:secret `
 6. ` php artisan migrate`
 7. ` php artisan storage:link ` (符号连接)
-
+还有help-idea
 
 1. APP_ENV=production
 2. APP_DEBUG=false
