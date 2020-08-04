@@ -5,6 +5,9 @@
 4. ` php artisan jwt:secret `
 5. ` php artisan migrate`
 6. ` php artisan storage:link ` (符号连接)
+7. ` php artisan ide-helper:generate ` (为 Facades 生成注释)
+8. ` php artisan ide-helper:models ` (为数据模型生成注释)
+9. ` php artisan ide-helper:meta ` (生成 PhpStorm Meta file)
 
 ## 部署
 1. APP_ENV=production
