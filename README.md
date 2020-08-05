@@ -1,6 +1,8 @@
 #ITY
 ## API文档
-[https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.cn/view/27e22c203e0d4854)
+API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.cn/view/27e22c203e0d4854)
+
+PHP文档 [https://apidoc.gitee.com/yang0312_admin/ItyAdmin](https://apidoc.gitee.com/yang0312_admin/ItyAdmin)
 ## About
 1. ` composer install `
 2. ` cp .env.example .env `
