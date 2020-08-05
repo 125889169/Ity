@@ -188,10 +188,10 @@ class Handler extends ExceptionHandler
                 ->build();
         }
         if ($exception instanceof MaintenanceModeException) {
-            return ResponseBuilder::asError(ApiCode::HTTP_SERVICE_UNAVAILABLE)
-                ->withHttpCode(ApiCode::HTTP_SERVICE_UNAVAILABLE)
-                ->withData()
-                ->build();
+            $response = ResponseBuilder::asError(ApiCode::HTTP_SERVICE_UNAVAILABLE)
+                ->withHttpCode(ApiCode::HTTP_SERVICE_UNAVAILABLE) ->withData();
+            if ($exception->getMessage() !== '') $response->withMessage($exception->getMessage());
+            return $response->build();
         }
         if (false && App::environment('local')) {
             return parent::render($request, $exception);

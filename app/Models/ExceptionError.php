@@ -122,7 +122,7 @@ class ExceptionError extends Model
     public static function getList(array $validated): array
     {
         $where = [];
-        if ($validated['is_solve'] !== null) {
+        if (isset($validated['is_solve'])) {
             $where[] = ['is_solve', '=', $validated['is_solve']];
         }
 

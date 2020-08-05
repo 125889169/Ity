@@ -20,7 +20,7 @@ class CreateExceptionErrorsTable extends Migration
             $table->text('file');
             $table->bigInteger('line');
             $table->text('trace');
-            $table->tinyInteger('is_solve')->default(0)->comment('是否解决 0为解决 1已解决');
+            $table->tinyInteger('is_solve')->default(0)->comment('是否解决 0未解决 1已解决');
             $table->timestamps();
         });
     }

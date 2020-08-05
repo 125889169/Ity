@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Admin\GetListRequest;
 use App\Http\Requests\Admin\User\CreateRequest;
+use App\Http\Requests\Admin\User\GetListRequest;
 use App\Http\Requests\Admin\User\UpdateRequest;
 use App\Http\Response\ApiCode;
 use App\User;
