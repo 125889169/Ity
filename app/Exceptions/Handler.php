@@ -193,7 +193,7 @@ class Handler extends ExceptionHandler
             if ($exception->getMessage() !== '') $response->withMessage($exception->getMessage());
             return $response->build();
         }
-        if (false && App::environment('local')) {
+        if (App::environment('local')) {
             return parent::render($request, $exception);
         }
         return ResponseBuilder::asError(ApiCode::HTTP_INTERNAL_SERVER_ERROR)

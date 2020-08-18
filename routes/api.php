@@ -60,6 +60,8 @@ Route::middleware(['lang'])->namespace('Admin')->prefix('admin')->name('admin.')
             Route::post('active/logs', 'ActiveLogController@logs')->middleware('permission:activeLog.activeLogs');
             // 异常记录
             Route::post('exception/logs', 'ExceptionErrorController@logs')->middleware('permission:exceptionError.exceptionErrors');
+            Route::post('exception/log/files', 'ExceptionErrorController@files')->middleware('permission:exceptionError.logFiles');
+            Route::post('exception/log/file', 'ExceptionErrorController@file')->middleware('permission:exceptionError.logFiles');
             Route::post('exception/amended', 'ExceptionErrorController@amended')->middleware('permission:exceptionError.amended');
         });
     });

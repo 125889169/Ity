@@ -63,6 +63,7 @@ return [
         'message' => '错误信息',
         'id' => '错误ID',
         'solve' => '修复值',
+        'file' => '文件',
     ],
     'user' => [
         'name' => '用户名',

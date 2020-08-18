@@ -15,6 +15,6 @@ class Controller extends BaseController
     public function home()
     {
         View::addExtension('html', 'php');
-        return view()->file(public_path().'/index.html');
+        return view()->file(public_path('index.html'));
     }
 }

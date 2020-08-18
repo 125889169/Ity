@@ -48,6 +48,7 @@ class PermissionSeeder extends Seeder
 
         $exceptionError = Permission::create(['pid' =>  $system->id, 'name' => 'exceptionError.exceptionErrors', 'title' => '异常记录', 'icon' => 'el-icon-warning', 'path' => '/exceptionErrors', 'component' => 'exceptionError/exceptionErrors', 'guard_name' => 'admin', 'hidden' => 0]);
         Permission::create(['pid' =>  $exceptionError->id, 'name' => 'exceptionError.amended', 'title' => '修复异常', 'icon' => 'el-icon-warning', 'path' => 'exceptionErrors/amended', 'component' => 'exceptionError/amended', 'guard_name' => 'admin', 'hidden' => 1]);
+        Permission::create(['pid' =>  $system->id, 'name' => 'exceptionError.logFiles', 'title' => 'LOG日志', 'icon' => 'el-icon-tickets', 'path' => '/exceptionErrors/logFiles', 'component' => 'exceptionError/logFiles', 'guard_name' => 'admin', 'hidden' => 0]);
 
         $user = Permission::create(['pid' => 0, 'name' => 'user.users', 'title' => '用户列表', 'icon' => 'el-icon-user', 'path' => '/users', 'component' => 'user/users', 'guard_name' => 'admin', 'hidden' => 0]);
         Permission::create(['pid' => $user->id, 'name' => 'user.create', 'title' => '添加用户', 'icon' => 'icon', 'path' => 'user/create', 'component' => 'user/create', 'guard_name' => 'admin', 'hidden' => 1]);
@@ -81,6 +82,7 @@ class PermissionSeeder extends Seeder
             'activeLog.activeLogs',
             'exceptionError.exceptionErrors',
             'exceptionError.amended',
+            'exceptionError.logFiles',
             'user.users',
             'user.user',
             'user.create',

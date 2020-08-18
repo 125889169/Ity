@@ -63,6 +63,7 @@ return [
         'message' => 'Error message',
         'id' => 'Error ID',
         'solve' => 'Repair value',
+        'file' => 'File',
     ],
     'user' => [
         'name' => 'User name',
