@@ -36,7 +36,7 @@ class RoleController extends Controller
             foreach ($permissions as $permission) {
                 $permissionIdList[] = $permission->id;
             }
-            $role->permissionIdList = $permissionIdList; // toDo 去除无用父节点
+            $role->permissionIdList = $permissionIdList;
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withData($role)
