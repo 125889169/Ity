@@ -10,4 +10,5 @@ return [
     'server_error' => '系统错误',
     'too_many_request' => '请求次数过多',
     'not_found' => '404',
+    'method_not_allowed' => '方法不被允许',
 ];

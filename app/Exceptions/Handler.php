@@ -10,10 +10,10 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
@@ -93,6 +93,11 @@ class Handler extends ExceptionHandler
         return $exception instanceof NotFoundHttpException;
     }
 
+    protected function isMethodNotAllowedHttpException(Throwable $exception)
+    {
+        return $exception instanceof MethodNotAllowedHttpException;
+    }
+
     /**
      * @param Throwable $exception
      */
@@ -100,7 +105,7 @@ class Handler extends ExceptionHandler
     {
         if (!$this->isUnauthorizedHttpException($exception) && !$this->isValidationException($exception) &&
         !$this->isThrottleRequestsException($exception) && !$this->isNotFoundHttpException($exception) &&
-        !$this->isAuthorizationException($exception)) {
+        !$this->isAuthorizationException($exception) && !$this->isMethodNotAllowedHttpException($exception)) {
             try {
                 $log = ExceptionError::create([
                     'message' => $exception->getMessage(),
@@ -198,6 +203,12 @@ class Handler extends ExceptionHandler
         if ($this->isNotFoundHttpException($exception)) {
             return ResponseBuilder::asError(ApiCode::HTTP_NOT_FOUND)
                 ->withHttpCode(ApiCode::HTTP_NOT_FOUND)
+                ->withData()
+                ->build();
+        }
+        if ($this->isMethodNotAllowedHttpException($exception)) {
+            return ResponseBuilder::asError(ApiCode::HTTP_METHOD_NOT_ALLOWED)
+                ->withHttpCode(ApiCode::HTTP_METHOD_NOT_ALLOWED)
                 ->withData()
                 ->build();
         }

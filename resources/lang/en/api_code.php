@@ -10,4 +10,5 @@ return [
     'server_error' => 'System error.',
     'too_many_request' => 'Too many requests.',
     'not_found' => '404',
+    'method_not_allowed' => 'Method not allowed',
 ];

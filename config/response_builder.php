@@ -37,6 +37,7 @@ return [
         \App\Http\Response\ApiCode::HTTP_INTERNAL_SERVER_ERROR => 'api_code.server_error',
         \App\Http\Response\ApiCode::HTTP_TOO_MANY_REQUEST => 'api_code.too_many_request',
         \App\Http\Response\ApiCode::HTTP_NOT_FOUND => 'api_code.not_found',
+        \App\Http\Response\ApiCode::HTTP_METHOD_NOT_ALLOWED => 'api_code.method_not_allowed',
 
     ],
 
