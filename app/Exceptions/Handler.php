@@ -169,8 +169,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        Log::error($request);
-        Log::error($exception);
         App::setLocale($request->header('lang', config('app.locale')));
         if ($this->isUnauthorizedHttpException($exception)) {
             return ResponseBuilder::asError(ApiCode::HTTP_UNAUTHORIZED)
