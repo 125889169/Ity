@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Http\Response\ApiCode;
 use Closure;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -18,6 +19,7 @@ class JWTRoleAuth extends BaseMiddleware
      * @param \Closure $next
      * @param null $role
      * @return mixed
+     * @throws AuthorizationException
      */
     public function handle($request, Closure $next, $role = null)
     {
@@ -27,9 +29,7 @@ class JWTRoleAuth extends BaseMiddleware
             return $next($request);
         }
         if ($tokenRole !== $role) {
-            return ResponseBuilder::asError(ApiCode::HTTP_FORBIDDEN)
-                ->withHttpCode(ApiCode::HTTP_FORBIDDEN)
-                ->build();
+            throw new AuthorizationException;
         }
 
         return $next($request);
