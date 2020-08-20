@@ -99,7 +99,8 @@ class Handler extends ExceptionHandler
     protected function exceptionError(Throwable $exception)
     {
         if (!$this->isUnauthorizedHttpException($exception) && !$this->isValidationException($exception) &&
-        !$this->isThrottleRequestsException($exception) && !$this->isNotFoundHttpException($exception)) {
+        !$this->isThrottleRequestsException($exception) && !$this->isNotFoundHttpException($exception) &&
+        !$this->isAuthorizationException($exception)) {
             try {
                 $log = ExceptionError::create([
                     'message' => $exception->getMessage(),
