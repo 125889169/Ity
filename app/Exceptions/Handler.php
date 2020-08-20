@@ -10,6 +10,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\UnauthorizedException;
@@ -162,6 +163,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        Log::error($request);
+        Log::error($exception);
+        Log::error('=========================================================');
         App::setLocale($request->header('lang', config('app.locale')));
         if ($this->isUnauthorizedHttpException($exception)) {
             return ResponseBuilder::asError(ApiCode::HTTP_UNAUTHORIZED)
