@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
 
@@ -87,13 +88,18 @@ class Handler extends ExceptionHandler
         return $exception instanceof ThrottleRequestsException;
     }
 
+    protected function isNotFoundHttpException(Throwable $exception)
+    {
+        return $exception instanceof NotFoundHttpException;
+    }
+
     /**
      * @param Throwable $exception
      */
     protected function exceptionError(Throwable $exception)
     {
         if (!$this->isUnauthorizedHttpException($exception) && !$this->isValidationException($exception) &&
-        !$this->isThrottleRequestsException($exception)) {
+        !$this->isThrottleRequestsException($exception) && !$this->isNotFoundHttpException($exception)) {
             try {
                 $log = ExceptionError::create([
                     'message' => $exception->getMessage(),
@@ -165,7 +171,6 @@ class Handler extends ExceptionHandler
     {
         Log::error($request);
         Log::error($exception);
-        Log::error('=========================================================');
         App::setLocale($request->header('lang', config('app.locale')));
         if ($this->isUnauthorizedHttpException($exception)) {
             return ResponseBuilder::asError(ApiCode::HTTP_UNAUTHORIZED)
@@ -188,6 +193,12 @@ class Handler extends ExceptionHandler
         if ($this->isThrottleRequestsException($exception)) {
             return ResponseBuilder::asError(ApiCode::HTTP_TOO_MANY_REQUEST)
                 ->withHttpCode(ApiCode::HTTP_TOO_MANY_REQUEST)
+                ->withData()
+                ->build();
+        }
+        if ($this->isNotFoundHttpException($exception)) {
+            return ResponseBuilder::asError(ApiCode::HTTP_NOT_FOUND)
+                ->withHttpCode(ApiCode::HTTP_NOT_FOUND)
                 ->withData()
                 ->build();
         }
