@@ -9,4 +9,5 @@ return [
     'service_unavailable' => 'System maintenance in progress.',
     'server_error' => 'System error.',
     'too_many_request' => 'Too many requests.',
+    'not_found' => '404',
 ];

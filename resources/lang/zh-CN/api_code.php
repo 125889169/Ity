@@ -9,4 +9,5 @@ return [
     'service_unavailable' => '系统维护中',
     'server_error' => '系统错误',
     'too_many_request' => '请求次数过多',
+    'not_found' => '404',
 ];
