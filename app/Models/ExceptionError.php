@@ -108,7 +108,7 @@ class ExceptionError extends Model
      * 数字转Json
      * @param $value
      */
-    public function setTraceAttribute($value)
+    public function setTraceAttribute($value): void
     {
         $this->attributes['trace'] = \GuzzleHttp\json_encode($value);
     }
@@ -156,7 +156,7 @@ class ExceptionError extends Model
     /**
      * 修正错误信息
      */
-    public function solve()
+    public function solve(): void
     {
         $this->is_solve = 1;
         $this->save();

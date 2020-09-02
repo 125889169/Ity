@@ -68,4 +68,9 @@ return [
     'user' => [
         'name' => 'User name',
     ],
+    'file' => [
+        'file' => 'File',
+        'name' => 'File Name',
+        'directory' => 'Directory path'
+    ]
 ];

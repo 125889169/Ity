@@ -117,6 +117,10 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'emoji'        => 'The :attribute Emoticons are not allowed, Please use UTF-8 characters that meet the requirements.',
+    'parent_directory'        => 'The :attribute a subdirectory named .. is not allowed.',
+    'un_starts_with' => 'The :attribute can not start with one of the following: :values.',
+    'continuous_character' => ':attribute cannot have consecutive :values.',
 
     /*
     |--------------------------------------------------------------------------

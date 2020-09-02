@@ -103,8 +103,9 @@ class Permission extends \Spatie\Permission\Models\Permission
      *
      * @param int $id
      * @return array
+     * @throws \Exception
      */
-    public static function __deleted(int $id)
+    public static function __deleted(int $id): array
     {
         $result = false;
         $message = __('message.common.delete.fail');

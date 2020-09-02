@@ -141,7 +141,7 @@ class Admin extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getAccessedRoutes()
+    public function getAccessedRoutes(): array
     {
         $menu = $this->getPermissionsViaRolesUnique();
         $menu = Arr::arraySort($menu, 'sort');
@@ -193,7 +193,7 @@ class Admin extends Authenticatable implements JWTSubject
      * @param array $data
      * @return array
      */
-    public static function _update(array $data)
+    public static function _update(array $data): array
     {
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);

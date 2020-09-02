@@ -56,6 +56,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['pid' => $user->id, 'name' => 'user.delete', 'title' => '删除用户', 'icon' => 'icon', 'path' => 'user/delete', 'component' => 'user/delete', 'guard_name' => 'admin', 'hidden' => 1]);
         Permission::create(['pid' => $user->id, 'name' => 'user.user', 'title' => '用户详情', 'icon' => 'icon', 'path' => 'user/user', 'component' => 'user/user', 'guard_name' => 'admin', 'hidden' => 1]);
 
+        $file = Permission::create(['pid' =>  $system->id, 'name' => 'file.files', 'title' => '文件管理', 'icon' => 'el-icon-folder', 'path' => '/files', 'component' => 'file/files', 'guard_name' => 'admin', 'hidden' => 0]);
+        Permission::create(['pid' =>  $file->id, 'name' => 'file.makeDirectory', 'title' => '创建文件夹', 'icon' => 'el-icon-folder-add', 'path' => 'file/makeDirectory', 'component' => 'file/makeDirectory', 'guard_name' => 'admin', 'hidden' => 1]);
+        Permission::create(['pid' =>  $file->id, 'name' => 'file.deleteDirectory', 'title' => '删除文件夹', 'icon' => 'el-icon-folder-delete', 'path' => 'file/deleteDirectory', 'component' => 'file/deleteDirectory', 'guard_name' => 'admin', 'hidden' => 1]);
+        Permission::create(['pid' =>  $file->id, 'name' => 'file.upload', 'title' => '上传文件', 'icon' => 'el-icon-upload', 'path' => 'file/upload', 'component' => 'file/upload', 'guard_name' => 'admin', 'hidden' => 1]);
+        Permission::create(['pid' =>  $file->id, 'name' => 'file.download', 'title' => '下载文件', 'icon' => 'el-icon-download', 'path' => 'file/download', 'component' => 'file/download', 'guard_name' => 'admin', 'hidden' => 1]);
+        Permission::create(['pid' =>  $file->id, 'name' => 'file.delete', 'title' => '删除文件', 'icon' => 'el-icon-delete', 'path' => 'file/delete', 'component' => 'file/delete', 'guard_name' => 'admin', 'hidden' => 1]);
+
 
         $role1 = Role::create(['name' => 'Admin', 'guard_name' => 'admin']);
         $role1->givePermissionTo([
@@ -88,6 +95,12 @@ class PermissionSeeder extends Seeder
             'user.create',
             'user.update',
             'user.delete',
+            'file.files',
+            'file.makeDirectory',
+            'file.deleteDirectory',
+            'file.upload',
+            'file.download',
+            'file.delete',
         ]);
 
         $user = Admin::find(1);

@@ -116,6 +116,10 @@ return [
     'uploaded'    => ':attribute 上传失败。',
     'url'         => ':attribute 格式不正确。',
     'uuid'        => ':attribute 必须是有效的 UUID。',
+    'emoji'        => ':attribute 不允许使用表情符，请使用符合要求的 UTF-8 字符。',
+    'parent_directory'        => ':attribute 不允许出现名为 .. 的子目录。',
+    'un_starts_with' => ':attribute 不能以 :values 为开头。',
+    'continuous_character' => ':attribute 不能出现连续的 :values。',
 
     /*
     |--------------------------------------------------------------------------

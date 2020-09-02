@@ -68,4 +68,9 @@ return [
     'user' => [
         'name' => '用户名',
     ],
+    'file' => [
+        'file' => '文件',
+        'name' => '文件名',
+        'directory' => '文件夹路径'
+    ]
 ];

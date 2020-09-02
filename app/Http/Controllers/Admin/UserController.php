@@ -20,7 +20,7 @@ class UserController extends Controller
      * @param GetListRequest $request
      * @return Response
      */
-    public function users(GetListRequest $request)
+    public function users(GetListRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -36,7 +36,7 @@ class UserController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function user(Request $request)
+    public function user(Request $request): Response
     {
         $id = $request->post('id', 0);
         $user = User::find($id);
@@ -60,7 +60,7 @@ class UserController extends Controller
      * @param CreateRequest $request
      * @return Response
      */
-    public function create(CreateRequest $request)
+    public function create(CreateRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -76,7 +76,7 @@ class UserController extends Controller
      * @param UpdateRequest $request
      * @return Response
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): Response
     {
         $validated = $request->validated();
         $resultData = User::_update($validated);
@@ -102,7 +102,7 @@ class UserController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request): Response
     {
         $id = $request->post('id', 0);
         $user = User::find($id);

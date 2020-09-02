@@ -24,7 +24,7 @@ class PermissionController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function permission(Request $request)
+    public function permission(Request $request): Response
     {
         $id = $request->post('id', 0);
         try {
@@ -48,7 +48,7 @@ class PermissionController extends Controller
      * @param GetListRequest $request
      * @return Response
      */
-    public function permissions(GetListRequest $request)
+    public function permissions(GetListRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -64,7 +64,7 @@ class PermissionController extends Controller
      * @param PermissionTreeRequest $request
      * @return Response
      */
-    public function permissionsTree(PermissionTreeRequest $request)
+    public function permissionsTree(PermissionTreeRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -82,7 +82,7 @@ class PermissionController extends Controller
      * @param DropRequest $request
      * @return Response
      */
-    public function drop(DropRequest $request)
+    public function drop(DropRequest $request): Response
     {
         $validated = $request->validated();
         $result = Permission::drop($validated['dragging'], $validated['drop'], $validated['type']);
@@ -105,7 +105,7 @@ class PermissionController extends Controller
      * @param CreateRequest $request
      * @return Response
      */
-    public function create(CreateRequest $request)
+    public function create(CreateRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -121,7 +121,7 @@ class PermissionController extends Controller
      * @param UpdateRequest $request
      * @return Response
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): Response
     {
         $validated = $request->validated();
         $id = $validated['id'];
@@ -150,7 +150,7 @@ class PermissionController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request): Response
     {
         $id = $request->post('id', 0);
         $response = Permission::__deleted($id);

@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LoginRequest;
 use App\Http\Response\ApiCode;
-use App\Models\Permission;
-use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
@@ -31,7 +30,7 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function refresh()
+    public function refresh(): Response
     {
         $token = $this->guard()->refresh();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -45,7 +44,7 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function me()
+    public function me(): Response
     {
         $user = $this->guard()->user();
         // 对应路由
@@ -70,7 +69,7 @@ class LoginController extends Controller
      * @param LoginRequest $request
      * @return Response
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): Response
     {
         $credentials = $this->credentials($request);
         if ($token = $this->guard()->attempt($credentials)) {
@@ -93,7 +92,7 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function logout()
+    public function logout(): Response
     {
         $this->guard()->logout();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -107,7 +106,7 @@ class LoginController extends Controller
      *
      * @return string
      */
-    public function username()
+    public function username(): string
     {
         return 'name';
     }
@@ -115,9 +114,9 @@ class LoginController extends Controller
     /**
      * Get the guard to be used during authentication.
      *
-     * @return StatefulGuard
+     * @return Guard
      */
-    protected function guard()
+    protected function guard(): Guard
     {
         return Auth::guard('admin');
     }
@@ -129,7 +128,7 @@ class LoginController extends Controller
      *
      * @return array
      */
-    protected function respondWithTokenData($token)
+    protected function respondWithTokenData($token): array
     {
         return [
             'access_token' => $token,

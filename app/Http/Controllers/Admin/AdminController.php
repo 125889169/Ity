@@ -23,7 +23,7 @@ class AdminController extends Controller
      * @param GetListRequest $request
      * @return Response
      */
-    public function admins(GetListRequest $request)
+    public function admins(GetListRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -39,7 +39,7 @@ class AdminController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function admin(Request $request)
+    public function admin(Request $request): Response
     {
         $id = $request->post('id', 0);
         $admin = Admin::find($id);
@@ -75,7 +75,7 @@ class AdminController extends Controller
      * @param CreateRequest $request
      * @return Response
      */
-    public function create(CreateRequest $request)
+    public function create(CreateRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -91,7 +91,7 @@ class AdminController extends Controller
      * @param UpdateRequest $request
      * @return Response
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): Response
     {
         $validated = $request->validated();
         $resultData = Admin::_update($validated);
@@ -118,7 +118,7 @@ class AdminController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request): Response
     {
         $id = $request->post('id', 0);
         $admin = Admin::find($id);
@@ -143,7 +143,7 @@ class AdminController extends Controller
      * @param UpdateSelfRequest $request
      * @return Response
      */
-    public function updateSelf(UpdateSelfRequest $request)
+    public function updateSelf(UpdateSelfRequest $request): Response
     {
         $validated = $request->validated();
         $validated['id'] = $request->user('admin')->id;
@@ -167,7 +167,7 @@ class AdminController extends Controller
      * @param SyncPermissionsRequest $request
      * @return Response
      */
-    public function syncPermissions(SyncPermissionsRequest $request)
+    public function syncPermissions(SyncPermissionsRequest $request): Response
     {
         $validated = $request->validated();
         $admin = Admin::find($validated['id']);

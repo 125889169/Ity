@@ -18,7 +18,7 @@ class ActiveLogController extends Controller
      * @param GetListRequest $request
      * @return Response
      */
-    public function logs(GetListRequest $request)
+    public function logs(GetListRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)

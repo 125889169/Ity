@@ -63,6 +63,13 @@ Route::middleware(['lang'])->namespace('Admin')->prefix('admin')->name('admin.')
             Route::post('exception/log/files', 'ExceptionErrorController@files')->middleware('permission:exceptionError.logFiles');
             Route::post('exception/log/file', 'ExceptionErrorController@file')->middleware('permission:exceptionError.logFiles');
             Route::post('exception/amended', 'ExceptionErrorController@amended')->middleware('permission:exceptionError.amended');
+            // 文件
+            Route::post('files', 'FileSystemController@files')->middleware('permission:file.files');
+            Route::post('file/makeDirectory', 'FileSystemController@makeDirectory')->middleware('permission:file.makeDirectory');
+            Route::post('file/deleteDirectory', 'FileSystemController@deleteDirectory')->middleware('permission:file.deleteDirectory');
+            Route::post('file/upload', 'FileSystemController@upload')->middleware('permission:file.upload');
+            Route::post('file/download', 'FileSystemController@download')->middleware('permission:file.download');
+            Route::post('file/delete', 'FileSystemController@delete')->middleware('permission:file.delete');
         });
     });
 });

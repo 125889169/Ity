@@ -25,7 +25,7 @@ class RoleController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function role(Request $request)
+    public function role(Request $request): Response
     {
         $id = $request->post('id', 0);
         try {
@@ -56,7 +56,7 @@ class RoleController extends Controller
      * @param GetListRequest $request
      * @return Response
      */
-    public function roles(GetListRequest $request)
+    public function roles(GetListRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -72,7 +72,7 @@ class RoleController extends Controller
      * @param AllRolesRequest $request
      * @return Response
      */
-    public function allRoles(AllRolesRequest $request)
+    public function allRoles(AllRolesRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -91,7 +91,7 @@ class RoleController extends Controller
      * @param CreateRequest $request
      * @return Response
      */
-    public function create(CreateRequest $request)
+    public function create(CreateRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -107,7 +107,7 @@ class RoleController extends Controller
      * @param UpdateRequest $request
      * @return Response
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): Response
     {
         $validated = $request->validated();
         $id = $validated['id'];
@@ -135,7 +135,7 @@ class RoleController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request): Response
     {
         $id = $request->post('id', 0);
         try {
@@ -159,7 +159,7 @@ class RoleController extends Controller
      * @param SyncPermissionsRequest $request
      * @return Response
      */
-    public function syncPermissions(SyncPermissionsRequest $request)
+    public function syncPermissions(SyncPermissionsRequest $request): Response
     {
         $validated = $request->validated();
         $role = Role::whereId($validated['id'])->first();
@@ -186,7 +186,7 @@ class RoleController extends Controller
      * @param SyncRolesRequest $request
      * @return Response
      */
-    public function syncRoles(SyncRolesRequest $request)
+    public function syncRoles(SyncRolesRequest $request): Response
     {
         $validated = $request->validated();
         $guard = $request->guardName()::find($validated['guard_id']);

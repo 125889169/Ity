@@ -22,7 +22,7 @@ class ExceptionErrorController extends Controller
      * @param GetListRequest $request
      * @return Response
      */
-    public function logs(GetListRequest $request)
+    public function logs(GetListRequest $request): Response
     {
         $validated = $request->validated();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
@@ -38,7 +38,7 @@ class ExceptionErrorController extends Controller
      * @param AmendedRequest $request
      * @return Response
      */
-    public function amended(AmendedRequest $request)
+    public function amended(AmendedRequest $request): Response
     {
         $validated = $request->validated();
         $exception = ExceptionError::find($validated['id']);
@@ -55,7 +55,7 @@ class ExceptionErrorController extends Controller
      *
      * @return Response
      */
-    public function files()
+    public function files(): Response
     {
         $disk = Storage::disk('logs');
         $files = $disk->files();
@@ -76,7 +76,7 @@ class ExceptionErrorController extends Controller
      * @param FileRequest $request
      * @return Response
      */
-    public function file(FileRequest $request)
+    public function file(FileRequest $request): Response
     {
         try {
             $validated = $request->validated();
