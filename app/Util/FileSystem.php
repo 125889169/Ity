@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Filesystem\Filesystem as DiskFileSystem;
+use Illuminate\Support\Str;
 
 /**
  * Class FileSystem
@@ -48,15 +49,21 @@ class FileSystem
 
     /**
      * 获取列表
-     * @param int $offset
-     * @param int $length
-     * @return Collection
+     * @param int $offset 起始页
+     * @param int $length 结束页
+     * @param string|null $search 搜索项
+     * @return Collection 返回集合
      */
-    public function lists(int $offset = 0, int $length = 100): Collection
+    public function lists(int $offset = 0, int $length = 100, string $search = null): Collection
     {
         $files = $this->files()->toArray();
         $directories = $this->directories()->toArray();
         $data = collect(array_merge($directories, $files));
+        if ($search !== null && $search !== '') {
+            $data = $data->filter(function ($value, $key) use ($search) {
+                return Str::contains($value['name'], $search);
+            });
+        }
         $total = $data->count();
         $data = $data->slice($offset, $length);
         if ($this->getDirectory() !== '/') {

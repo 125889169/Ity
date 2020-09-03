@@ -26,13 +26,14 @@ class FileSystemController extends Controller
     public function files(Request $request): Response
     {
         $directory = $request->post('directory', '') ?? '';
+        $search = $request->post('search', null) ?? null;
         $offset = $request->post('offset', 0) ?? 0;
         $length = $request->post('length', 100) ?? 100;
         $offset = ($offset - 1 < 0 ? 0 : $offset - 1) * $length;
         $fileSystem = new FileSystem($directory);
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
             ->withHttpCode(ApiCode::HTTP_OK)
-            ->withData($fileSystem->lists($offset, $length)->toArray())
+            ->withData($fileSystem->lists($offset, $length, $search)->toArray())
             ->withMessage(__('message.common.search.success'))
             ->build();
     }
@@ -168,7 +169,8 @@ class FileSystemController extends Controller
             activity()
                 ->useLog('file')
                 ->causedBy($request->user())
-                ->log(':causer.name 删除了文件 ' . implode(' ', $paths));
+                ->withProperties($paths)
+                ->log(':causer.name 删除了文件');
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withMessage(__('message.common.delete.success'))
