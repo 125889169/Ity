@@ -104,6 +104,11 @@ class Handler extends ExceptionHandler
         return $exception instanceof SuspiciousOperationException;
     }
 
+    protected function isMaintenanceModeException(Throwable $exception)
+    {
+        return $exception instanceof MaintenanceModeException;
+    }
+
     /**
      * @param Throwable $exception
      */
@@ -112,7 +117,7 @@ class Handler extends ExceptionHandler
         if (!$this->isUnauthorizedHttpException($exception) && !$this->isValidationException($exception) &&
         !$this->isThrottleRequestsException($exception) && !$this->isNotFoundHttpException($exception) &&
         !$this->isAuthorizationException($exception) && !$this->isMethodNotAllowedHttpException($exception) &&
-        !$this->isSuspiciousOperationException($exception)
+        !$this->isSuspiciousOperationException($exception)  && !$this->isMaintenanceModeException($exception)
         ) {
             try {
                 $log = ExceptionError::create([
