@@ -31,3 +31,8 @@ PHP文档 [https://apidoc.gitee.com/yang0312_admin/ItyAdmin](https://apidoc.gite
 1.  `php artisan down --message="系统维护中"` 维护模式
 2.  `php artisan down --message="系统维护中" --allow=i.p.v.4` 维护模式 指定IP可以访问
 3. `php artisan up` 关闭维护模式
+
+
+##计划
+1. 引入workman/gateway
+2. 引入微信API
