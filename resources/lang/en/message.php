@@ -2,8 +2,12 @@
 return [
     'common' => [
         'search' => [
-            'success' => 'Query successful',
+            'success' => 'Query successfully',
             'fail' => 'Query failed',
+        ],
+        'bind' => [
+            'success' => 'Bind successful',
+            'fail' => 'Bind failed',
         ],
         'create' => [
             'success' => 'Add successfully',
@@ -25,6 +29,9 @@ return [
         'start_at' => 'Start date',
         'end_at' => 'End date',
         'select_at_least_one' => 'Select at least one :data',
+        'error' => [
+            'json_error' => 'JSON error'
+        ]
     ],
     'permission' => [
         'permission' => 'Directory / permissions',

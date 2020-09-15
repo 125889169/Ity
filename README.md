@@ -1,8 +1,7 @@
-#ITY
+#**ITY**
 ## API文档
 API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.cn/view/27e22c203e0d4854)
 
-PHP文档 [https://apidoc.gitee.com/yang0312_admin/ItyAdmin](https://apidoc.gitee.com/yang0312_admin/ItyAdmin)
 ## About
 1. ` composer install `
 2. ` cp .env.example .env `
@@ -15,6 +14,11 @@ PHP文档 [https://apidoc.gitee.com/yang0312_admin/ItyAdmin](https://apidoc.gite
 9. ` php artisan ide-helper:models ` (为数据模型生成注释)
 10. ` php artisan ide-helper:meta ` (生成 PhpStorm Meta file)
 
+## WebSocket
+1. WINDOWS: ` start_for_win.bat `
+2. LINUX: ` php artisan workerman linux --start=all -d `
+3. URI: ` ws://IP:2346?lang=LANG&token=TOKEN `
+4. SEND: ` {"route": "route.name", "data": data} `
 
 ## 部署
 1. APP_ENV=production
@@ -32,7 +36,6 @@ PHP文档 [https://apidoc.gitee.com/yang0312_admin/ItyAdmin](https://apidoc.gite
 2.  `php artisan down --message="系统维护中" --allow=i.p.v.4` 维护模式 指定IP可以访问
 3. `php artisan up` 关闭维护模式
 
-
-##计划
-1. 引入workman/gateway
-2. 引入微信API
+## TODO
+1. WEBSOCKET测试
+2. 系统配置表

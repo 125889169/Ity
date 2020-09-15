@@ -5,6 +5,10 @@ return [
             'success' => '查询成功',
             'fail' => '查询失败',
         ],
+        'bind' => [
+            'success' => '绑定成功',
+            'fail' => '绑定失败',
+        ],
         'create' => [
             'success' => '添加成功',
             'fail' => '添加失败',
@@ -25,6 +29,9 @@ return [
         'start_at' => '开始日期',
         'end_at' => '结束日期',
         'select_at_least_one' => '至少选择一个 :data',
+        'error' => [
+            'json_error' => 'JSON 格式错误'
+        ]
     ],
     'permission' => [
         'permission' => '目录/权限',
