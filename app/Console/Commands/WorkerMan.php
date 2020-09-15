@@ -89,7 +89,7 @@ class WorkerMan extends Command
     private function startGateWay()
     {
         // 指定websocket协议
-        $gateway = new Gateway("websocket://" . env('WEBSOCKET_URL', '0.0.0.0:2346'));
+        $gateway = new Gateway(config('app.websocket_url'));
         $gateway->name                 = 'Gateway ' . config('app.name');
         $gateway->count                = 4; // CPU核数
         $gateway->lanIp                = '127.0.0.1';
