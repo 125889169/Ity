@@ -54,6 +54,7 @@ class LoginController extends Controller
         foreach ($roles as $key => $role) {
             $roles[$key] = $role['id'];
         }
+        array_unshift($roles, 'App\Models\Admin\\' . $user->id);
         unset($user->roles);
         // 对应角色
         $user['roles'] = $roles;

@@ -143,7 +143,7 @@ class Admin extends Authenticatable implements JWTSubject
      */
     public function getAccessedRoutes(): array
     {
-        $menu = $this->getPermissionsViaRolesUnique();
+        $menu = $this->getAllPermissionsUnique();
         $menu = Arr::arraySort($menu, 'sort');
         $menu = Arr::formatRoutes($menu);
         $menu = Arr::getTree($menu);
@@ -160,9 +160,9 @@ class Admin extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getPermissionsViaRolesUnique(): array
+    public function getAllPermissionsUnique(): array
     {
-        $permissionsViaRoles = $this->getPermissionsViaRoles()
+        $permissionsViaRoles = $this->getAllPermissions()
             ->where('guard_name', '=', 'admin')
             ->toArray();
         $menu = [];

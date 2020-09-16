@@ -10,7 +10,7 @@ class AdminTest extends TestCase
 
     public function testGetAccessedRoutes()
     {
-        $user = Admin::find(1);
+        $user = Admin::find(2949037);
         dd($user->getAccessedRoutes());
     }
 }

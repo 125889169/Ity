@@ -68,7 +68,11 @@ class Arr
             $roles = [];
             if (isset($value['pivots'])) {
                 foreach ($value['pivots'] as $pivot) {
-                    $roles[] = $pivot['role_id'];
+                    if (isset($pivot['role_id'])) {
+                        $roles[] = $pivot['role_id'];
+                    } else {
+                        $roles[] = $pivot['model_type'] . '\\' . $pivot['model_id'];
+                    }
                 }
             }
             $info['meta'] = [
