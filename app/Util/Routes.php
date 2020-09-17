@@ -22,10 +22,14 @@ class Routes
 
     public function routes(): Collection
     {
-        $permissions = $this->permissionCollect();
-        $permissions = $this->sortByDesc($permissions);
-        $permissions = $this->formatRoutes($permissions);
-        $permissions = $this->formatRoutesChildren($permissions);
+        if ($this->getAdmin()->status === 1) {
+            $permissions = $this->permissionCollect();
+            $permissions = $this->sortByDesc($permissions);
+            $permissions = $this->formatRoutes($permissions);
+            $permissions = $this->formatRoutesChildren($permissions);
+        } else {
+            $permissions = collect();
+        }
         return $permissions->merge([[
             'path' => '*',
             'redirect' => '/404',
