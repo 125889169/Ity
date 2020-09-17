@@ -37,5 +37,5 @@ API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.c
 3. `php artisan up` 关闭维护模式
 
 ## TODO
-1. WEBSOCKET测试
-2. 系统配置表
+1. 系统配置表
+2. 添加STATUS

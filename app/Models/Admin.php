@@ -45,6 +45,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $status 状态 1:正常 2:禁止
+ * @method static Builder|Admin whereStatus($value)
  */
 class Admin extends Authenticatable implements JWTSubject
 {
@@ -62,7 +64,7 @@ class Admin extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'status'
     ];
 
     /**
@@ -120,7 +122,7 @@ class Admin extends Authenticatable implements JWTSubject
 
         $total = $model->count('id');
 
-        $admins = $model->select(['id', 'name', 'email', 'created_at', 'updated_at'])
+        $admins = $model->select(['id', 'name', 'status', 'email', 'created_at', 'updated_at'])
             ->orderBy($validated['sort'] ?? 'created_at', $validated['order'] === 'ascending' ? 'asc' : 'desc')
             ->offset(($validated['offset'] - 1) * $validated['limit'])
             ->limit($validated['limit'])
@@ -143,11 +145,15 @@ class Admin extends Authenticatable implements JWTSubject
      */
     public function getAccessedRoutes(): array
     {
-        $menu = $this->getAllPermissionsUnique();
-        $menu = Arr::arraySort($menu, 'sort');
-        $menu = Arr::formatRoutes($menu);
-        $menu = Arr::getTree($menu);
-        $menu = Arr::formatRoutesChildren($menu);
+        if ($this->status === 1) {
+            $menu = $this->getAllPermissionsUnique();
+            $menu = Arr::arraySort($menu, 'sort');
+            $menu = Arr::formatRoutes($menu);
+            $menu = Arr::getTree($menu);
+            $menu = Arr::formatRoutesChildren($menu);
+        } else {
+            $menu = [];
+        }
         return array_merge($menu, [[
             'path' => '*',
             'redirect' => '/404',

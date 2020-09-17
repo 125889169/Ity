@@ -56,6 +56,7 @@ return [
     'admin' => [
         'id' => '用户ID',
         'name' => '用户名',
+        'status' => '状态',
     ],
     'activity' => [
         'log_name' => '日志名称',

@@ -33,6 +33,7 @@ class UpdateRequest extends FormRequest
             'name' => ['required', 'string', Rule::unique('admins')->ignore($this->admin), 'between:2,60'],
             'email' => ['required', 'string', 'email', Rule::unique('admins')->ignore($this->admin), 'between:2,60'],
             'password' => ['nullable', 'string', 'between:6,60'],
+            'status' => ['required', 'integer', Rule::in([0, 1])],
         ];
     }
 
@@ -48,6 +49,7 @@ class UpdateRequest extends FormRequest
             'name' => __('message.admin.name'),
             'email' => __('validation.attributes.email'),
             'password' => __('validation.attributes.password'),
+            'status' => __('message.admin.status'),
         ];
     }
 

@@ -24,7 +24,7 @@ Route::middleware(['lang'])->namespace('Admin')->prefix('admin')->name('admin.')
     Route::post('refresh', 'LoginController@refresh');
     Route::middleware(['jwt.role:admin', 'jwt.auth'])->group(function () {
         Route::post('me', 'LoginController@me');
-        Route::middleware(['auth:admin'])->group(function () {
+        Route::middleware(['auth:admin', 'auth.status:admin'])->group(function () {
             // 权限
             Route::post('permission/create', 'PermissionController@create')->middleware('permission:permission.create');
             Route::post('permission/update', 'PermissionController@update')->middleware('permission:permission.update');

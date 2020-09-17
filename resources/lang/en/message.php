@@ -56,6 +56,7 @@ return [
     'admin' => [
         'id' => 'User ID',
         'name' => 'User name',
+        'status' => 'Status',
     ],
     'activity' => [
         'log_name' => 'Log name',

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -27,6 +28,7 @@ class CreateRequest extends FormRequest
             'name' => ['required', 'string', 'unique:admins', 'between:2,60'],
             'email' => ['required', 'string', 'email', 'unique:admins', 'between:2,60'],
             'password' => ['required', 'string', 'between:6,60'],
+            'status' => ['required', 'integer', Rule::in([0, 1])],
         ];
     }
 
@@ -41,6 +43,7 @@ class CreateRequest extends FormRequest
             'name' => __('message.admin.name'),
             'email' => __('validation.attributes.email'),
             'password' => __('validation.attributes.password'),
+            'status' => __('message.admin.status'),
         ];
     }
 

@@ -28,7 +28,7 @@ class GetListRequest extends FormRequest
             'name' => [
                 'nullable',
                 'string',
-                'between:2,60',
+                'between:1,60',
             ],
         ]);
     }
