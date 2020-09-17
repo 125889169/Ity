@@ -38,4 +38,3 @@ API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.c
 
 ## TODO
 1. 系统配置表
-2. 添加STATUS
