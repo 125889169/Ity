@@ -16,6 +16,6 @@ class FileSystemTest extends TestCase
     {
         $directory = '/miandan/';
         $fileSystem = new FileSystem($directory);
-        dd($fileSystem->lists());
+        dd($fileSystem->lists(2, 20, 1));
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LoginRequest;
 use App\Http\Response\ApiCode;
+use App\Models\Admin;
+use App\Util\Routes;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -46,9 +48,10 @@ class LoginController extends Controller
      */
     public function me(): Response
     {
+        /** @var Admin $user */
         $user = $this->guard()->user();
         // 对应路由
-        $accessedRoutes = $user->getAccessedRoutes();
+        $accessedRoutes = (new Routes($user))->routes();
         $user->accessedRoutes = $accessedRoutes;
         $roles = $user->roles->toArray();
         foreach ($roles as $key => $role) {

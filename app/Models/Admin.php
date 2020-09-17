@@ -139,49 +139,6 @@ class Admin extends Authenticatable implements JWTSubject
     }
 
     /**
-     * 获取授权目录
-     *
-     * @return array
-     */
-    public function getAccessedRoutes(): array
-    {
-        if ($this->status === 1) {
-            $menu = $this->getAllPermissionsUnique();
-            $menu = Arr::arraySort($menu, 'sort');
-            $menu = Arr::formatRoutes($menu);
-            $menu = Arr::getTree($menu);
-            $menu = Arr::formatRoutesChildren($menu);
-        } else {
-            $menu = [];
-        }
-        return array_merge($menu, [[
-            'path' => '*',
-            'redirect' => '/404',
-            'hidden' => true
-        ]]);
-    }
-
-    /**
-     * 获取唯一的对应权限 权限叠加
-     *
-     * @return array
-     */
-    public function getAllPermissionsUnique(): array
-    {
-        $permissionsViaRoles = $this->getAllPermissions()
-            ->where('guard_name', '=', 'admin')
-            ->toArray();
-        $menu = [];
-        $pivots = [];
-        foreach ($permissionsViaRoles as $key => $permissionsViaRole) {
-            $pivots[$permissionsViaRole['id']][] = $permissionsViaRole['pivot'];
-            $permissionsViaRole['pivots'] = $pivots[$permissionsViaRole['id']];
-            $menu[$permissionsViaRole['id']] = $permissionsViaRole;
-        }
-        return $menu;
-    }
-
-    /**
      * 创建
      *
      * @param array $attributes

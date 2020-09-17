@@ -56,9 +56,7 @@ class FileSystem
      */
     public function lists(int $offset = 0, int $length = 100, string $search = null): Collection
     {
-        $files = $this->files()->toArray();
-        $directories = $this->directories()->toArray();
-        $data = collect(array_merge($directories, $files));
+        $data = $this->directories()->merge($this->files());
         if ($search !== null && $search !== '') {
             $data = $data->filter(function ($value, $key) use ($search) {
                 return Str::contains($value['name'], $search);
@@ -81,7 +79,7 @@ class FileSystem
         }
         return collect([
             'total' => $total,
-            'data' => array_values($data->toArray())
+            'data' => $data->values()->toArray()
         ]);
     }
 
