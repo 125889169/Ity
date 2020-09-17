@@ -16,7 +16,7 @@ API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.c
 
 ## WebSocket
 1. WINDOWS: ` start_for_win.bat `
-2. LINUX: ` php artisan workerman linux --start=all -d `
+2. LINUX: ` php artisan workerman start --d `
 3. URI: ` ws://IP:2346?lang=LANG&token=TOKEN `
 4. SEND: ` {"route": "route.name", "data": data} `
 
