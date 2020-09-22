@@ -109,7 +109,7 @@ class Handler extends ExceptionHandler
     protected function isMaintenanceModeException(Throwable $exception)
     {
         return $exception instanceof MaintenanceModeException
-            || ($exception instanceof HttpException && $exception->getStatusCode() === 503);
+            || ($exception instanceof HttpException && $exception->getStatusCode() === ApiCode::HTTP_SERVICE_UNAVAILABLE);
     }
 
     /**
@@ -229,9 +229,10 @@ class Handler extends ExceptionHandler
                 ->build();
         }
         if ($this->isMaintenanceModeException($exception)) {
-            $response = ResponseBuilder::asError(ApiCode::HTTP_SERVICE_UNAVAILABLE)
-                ->withHttpCode(ApiCode::HTTP_SERVICE_UNAVAILABLE) ->withData();
-            return $response->build();
+            return ResponseBuilder::asError(ApiCode::HTTP_SERVICE_UNAVAILABLE)
+                ->withHttpCode(ApiCode::HTTP_SERVICE_UNAVAILABLE)
+                ->withData()
+                ->build();
         }
         if (App::environment('local')) {
             return parent::render($request, $exception);
