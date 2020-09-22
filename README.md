@@ -29,6 +29,7 @@ API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.c
 6. `php artisan route:cache` 优化路由加载
 7. `composer dump-autoload --optimize` 优化自动加载
 8. `php artisan activitylog:clean --days=7` 清理操作日志
+9. `php artisan exceptionerror:clean --days=7` 清理异常日志
 
 ## 维护
 1.  `php artisan down` 维护模式
