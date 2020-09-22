@@ -107,7 +107,7 @@ class Handler extends ExceptionHandler
 
     protected function isMaintenanceModeException(Throwable $exception)
     {
-        return $exception instanceof MaintenanceModeException || $exception->getStatusCode() === 503;
+        return $exception instanceof MaintenanceModeException;
     }
 
     /**
