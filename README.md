@@ -32,8 +32,7 @@ API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.c
 9. `php artisan activitylog:clean --days=7` 清理操作日志
 
 ## 维护
-1.  `php artisan down --message="系统维护中"` 维护模式
-2.  `php artisan down --message="系统维护中" --allow=i.p.v.4` 维护模式 指定IP可以访问
+1.  `php artisan down` 维护模式
 3. `php artisan up` 关闭维护模式
 
 ## TODO

@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
+use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\ValidationException;
@@ -106,7 +107,7 @@ class Handler extends ExceptionHandler
 
     protected function isMaintenanceModeException(Throwable $exception)
     {
-        return $exception instanceof MaintenanceModeException;
+        return $exception instanceof MaintenanceModeException || $exception->getStatusCode() === 503;
     }
 
     /**
@@ -225,10 +226,9 @@ class Handler extends ExceptionHandler
                 ->withData()
                 ->build();
         }
-        if ($exception instanceof MaintenanceModeException) {
+        if ($this->isMaintenanceModeException($exception)) {
             $response = ResponseBuilder::asError(ApiCode::HTTP_SERVICE_UNAVAILABLE)
                 ->withHttpCode(ApiCode::HTTP_SERVICE_UNAVAILABLE) ->withData();
-            if ($exception->getMessage() !== '') $response->withMessage($exception->getMessage());
             return $response->build();
         }
         if (App::environment('local')) {
