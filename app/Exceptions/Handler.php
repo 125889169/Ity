@@ -15,6 +15,7 @@ use Illuminate\Validation\ValidationException;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -107,7 +108,8 @@ class Handler extends ExceptionHandler
 
     protected function isMaintenanceModeException(Throwable $exception)
     {
-        return $exception instanceof MaintenanceModeException;
+        return $exception instanceof MaintenanceModeException
+            || ($exception instanceof HttpException && $exception->getStatusCode() === 503);
     }
 
     /**

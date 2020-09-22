@@ -27,12 +27,13 @@ API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.c
 4. `composer install --optimize-autoloader --no-dev` 自动加载器改进
 5. `php artisan config:cache` 优化配置加载
 6. `php artisan route:cache` 优化路由加载
-7. `php artisan optimize` 优化，生成编译文件
-8. `composer dump-autoload --optimize` 优化自动加载
-9. `php artisan activitylog:clean --days=7` 清理操作日志
+7. `composer dump-autoload --optimize` 优化自动加载
+8. `php artisan activitylog:clean --days=7` 清理操作日志
 
 ## 维护
 1.  `php artisan down` 维护模式
-3. `php artisan up` 关闭维护模式
+    1.  `php artisan down --secret="1630542a-246b-4b66-afa1-dd72a4c43515"` 指定维护模式的绕过令牌
+    2. 访问 `https://example.com/1630542a-246b-4b66-afa1-dd72a4c43515`
+2. `php artisan up` 关闭维护模式
 
 ## TODO
