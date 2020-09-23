@@ -46,12 +46,14 @@ return [
         'hidden'    =>  '目录显示',
         'delete_pid'    =>  '请先删除下级目录',
         'type' => '操作类型',
+        'change' => '您的权限已被更改',
     ],
     'role' => [
         'id' => '角色',
         'name' => '角色标识',
         'permissions' => '权限/目录',
         'guard_id' => '对应规则ID',
+        'change' => '您的角色已被更改',
     ],
     'admin' => [
         'id' => '用户ID',
@@ -80,5 +82,10 @@ return [
         'file' => '文件',
         'name' => '文件名',
         'directory' => '文件夹路径'
+    ],
+    'notification' => [
+        'message' => '信息',
+        'is_read' => '是否已读',
+        'admins' => '管理员'
     ]
 ];

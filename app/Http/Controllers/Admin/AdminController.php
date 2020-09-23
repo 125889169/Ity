@@ -11,6 +11,7 @@ use App\Http\Requests\Admin\Admin\UpdateSelfRequest;
 use App\Http\Response\ApiCode;
 use App\Models\Admin;
 use App\Models\Permission;
+use App\Notifications\PermissionChange;
 use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
@@ -181,6 +182,7 @@ class AdminController extends Controller
             ->causedBy($request->user())
             ->withProperties($validated)
             ->log('update permissions');
+        $admin->notify(new PermissionChange($permissions));
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
             ->withHttpCode(ApiCode::HTTP_OK)
             ->withData($admin)

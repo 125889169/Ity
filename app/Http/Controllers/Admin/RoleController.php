@@ -12,6 +12,7 @@ use App\Http\Requests\Admin\Role\UpdateRequest;
 use App\Http\Response\ApiCode;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Notifications\RoleChange;
 use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
@@ -200,6 +201,7 @@ class RoleController extends Controller
             ->causedBy($request->user())
             ->withProperties($validated)
             ->log('update roles');
+        $guard->notify(new RoleChange($roles));
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
             ->withHttpCode(ApiCode::HTTP_OK)
             ->withData($guard)

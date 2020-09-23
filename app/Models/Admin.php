@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Util\Arr;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;

@@ -46,12 +46,14 @@ return [
         'hidden'    =>  'Directory display',
         'delete_pid'    =>  'Please delete the subordinate directory first',
         'type' => 'Operation type',
+        'change' => 'Your permission has been changed',
     ],
     'role' => [
         'id' => 'Role',
         'name' => 'Role identification',
         'permissions' => 'Permissions / directory',
         'guard_id' => 'Corresponding rule ID',
+        'change' => 'Your role has been changed',
     ],
     'admin' => [
         'id' => 'User ID',
@@ -80,5 +82,9 @@ return [
         'file' => 'File',
         'name' => 'File Name',
         'directory' => 'Directory path'
+    ],
+    'notification' => [
+        'message' => 'message',
+        'is_read' => 'is_read',
     ]
 ];

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ExceptionErrorController;
 use App\Http\Controllers\Admin\FileSystemController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -32,6 +33,12 @@ Route::middleware(['lang'])->prefix('admin')->name('admin.')->group(function () 
     Route::post('refresh', [LoginController::class, 'refresh']);
     Route::middleware(['jwt.role:admin', 'jwt.auth'])->group(function () {
         Route::post('me', [LoginController::class, 'me']);
+        Route::post('notifications', [NotificationController::class, 'notifications']);
+        Route::post('notification', [NotificationController::class, 'notification']);
+        Route::post('notification/unReadCount', [NotificationController::class, 'unReadCount']);
+        Route::post('notification/allRead', [NotificationController::class, 'allRead']);
+        Route::post('notification/admins', [NotificationController::class, 'admins']);
+        Route::post('notification/send', [NotificationController::class, 'send']);
         Route::middleware(['auth:admin', 'auth.status:admin'])->group(function () {
             // 权限
             Route::post('permission/create', [PermissionController::class, 'create'])->middleware('permission:permission.create');
