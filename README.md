@@ -30,7 +30,6 @@ API文档 [https://docs.apipost.cn/view/27e22c203e0d4854](https://docs.apipost.c
 7. `composer dump-autoload --optimize` 优化自动加载
 8. `php artisan activitylog:clean --days=7` 清理操作日志
 9. `php artisan exceptionerror:clean --days=7` 清理异常日志
-
 ## 维护
 1.  `php artisan down` 维护模式
     1.  `php artisan down --secret="1630542a-246b-4b66-afa1-dd72a4c43515"` 指定维护模式的绕过令牌
