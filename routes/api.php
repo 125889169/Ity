@@ -37,6 +37,7 @@ Route::middleware(['lang'])->prefix('admin')->name('admin.')->group(function () 
         Route::post('notification', [NotificationController::class, 'notification']);
         Route::post('notification/unReadCount', [NotificationController::class, 'unReadCount']);
         Route::post('notification/allRead', [NotificationController::class, 'allRead']);
+        Route::post('notification/read', [NotificationController::class, 'read']);
         Route::post('notification/admins', [NotificationController::class, 'admins']);
         Route::post('notification/send', [NotificationController::class, 'send']);
         Route::middleware(['auth:admin', 'auth.status:admin'])->group(function () {

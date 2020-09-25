@@ -61,6 +61,8 @@ class LoginController extends Controller
         unset($user->roles);
         // 对应角色
         $user['roles'] = $roles;
+        // 未读消息数
+        $user['unreadNotificationCount'] = $user->unreadNotifications()->count('id');
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
             ->withHttpCode(ApiCode::HTTP_OK)
             ->withData($user)

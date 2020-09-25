@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class NotificationController extends Controller
 {
+    /** @var Admin */
     private $user;
 
     /**
@@ -64,6 +65,10 @@ class NotificationController extends Controller
             ])
             ->first();
         if ($notification) {
+            if ($notification->read_at === null) {
+                $notification->read_at = now();
+                $notification->save();
+            }
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withData($notification)
@@ -142,13 +147,33 @@ class NotificationController extends Controller
      */
     public function admins(): Response
     {
-        $admins = Admin::whereStatus(1)->select(['id', 'name'])->get();
+        $admins = Admin::whereStatus(1)
+            ->where('id', '!=', $this->user->id)
+            ->select(['id', 'name'])
+            ->get();
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
             ->withHttpCode(ApiCode::HTTP_OK)
             ->withData([
                 'admins' => $admins
             ])
             ->withMessage(__('message.common.search.success'))
+            ->build();
+    }
+
+    /**
+     * 标记已读
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function read(Request $request): Response
+    {
+        $this->user->unreadNotifications()
+            ->whereIn('id', $request->post('id'))
+            ->update(['read_at' => now()]);
+        return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
+            ->withHttpCode(ApiCode::HTTP_OK)
+            ->withMessage(__('message.common.update.success'))
             ->build();
     }
 }

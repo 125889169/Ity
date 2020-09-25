@@ -46,12 +46,17 @@ class DatabaseNotification extends DatabaseNotificationModel
      */
     public static function getList($guard, array $validated): array
     {
-        $model = $guard->notifications()
+        $model = DatabaseNotification::whereNotifiableType(get_class($guard))
+            ->whereNotifiableId($guard->id)
             ->when($validated['message'] ?? null, function ($query) use ($validated) {
                 return $query->where('data', 'like', '%' . $validated['message'] . '%');
             })
             ->when(isset($validated['is_read']), function ($query) use ($validated) {
-                return $query->where('is_read', '=', $validated['is_read']);
+                if ($validated['is_read'] === 0) {
+                    return $query->whereNull('read_at');
+                } else {
+                    return $query->whereNotNull('read_at');
+                }
             })
             ->when($validated['start_at'] ?? null, function ($query) use ($validated) {
                 return $query->whereBetween('created_at', [$validated['start_at'], $validated['end_at']]);
@@ -71,7 +76,9 @@ class DatabaseNotification extends DatabaseNotificationModel
             ->limit($validated['limit'])
             ->get()
             ->map(function ($notification) {
-                $notification->data = Str::limit(implode(' ', $notification->data), 20, '...');
+                // 只保留KEY值 去除HTML标签 最多100个字符 拼接...
+                $data = preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/", " ", strip_tags(implode(' ', $notification->data)));
+                $notification->data = Str::limit($data, 100, '...');
                 return $notification;
             });
 
