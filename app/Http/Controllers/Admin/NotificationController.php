@@ -24,6 +24,7 @@ class NotificationController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth:admin');
         /** @var Admin */
         $this->user = Auth::guard('admin')->user();
     }
