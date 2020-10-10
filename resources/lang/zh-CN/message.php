@@ -87,5 +87,16 @@ return [
         'message' => '信息',
         'is_read' => '是否已读',
         'admins' => '管理员'
+    ],
+    'nginx' => [
+        'file' => '文件',
+        'ip' => 'Ip',
+        'method' => '请求类型',
+        'uri' => '请求地址',
+        'http_code' => 'CODE码',
+        'is_warning' => '警告',
+        'is_error' => '错误',
+        'is_robot' => '机器',
+        'is_mobile' => '手机',
     ]
 ];

@@ -46,6 +46,8 @@ class PermissionSeeder extends Seeder
 
         $activeLog = Permission::create(['pid' =>  $system->id, 'name' => 'activeLog.activeLogs', 'title' => '操作记录', 'icon' => 'el-icon-tickets', 'path' => '/activeLogs', 'component' => 'activeLog/activeLogs', 'guard_name' => 'admin', 'hidden' => 0]);
 
+        $nginxLog = Permission::create(['pid' =>  $system->id, 'name' => 'nginx.logs', 'title' => 'NGINX记录', 'icon' => 'el-icon-tickets', 'path' => '/nginxLogs', 'component' => 'nginx/nginxLogs', 'guard_name' => 'admin', 'hidden' => 0]);
+
         $exceptionError = Permission::create(['pid' =>  $system->id, 'name' => 'exceptionError.exceptionErrors', 'title' => '异常记录', 'icon' => 'el-icon-warning', 'path' => '/exceptionErrors', 'component' => 'exceptionError/exceptionErrors', 'guard_name' => 'admin', 'hidden' => 0]);
         Permission::create(['pid' =>  $exceptionError->id, 'name' => 'exceptionError.amended', 'title' => '修复异常', 'icon' => 'el-icon-warning', 'path' => 'exceptionErrors/amended', 'component' => 'exceptionError/amended', 'guard_name' => 'admin', 'hidden' => 1]);
         Permission::create(['pid' =>  $system->id, 'name' => 'exceptionError.logFiles', 'title' => 'LOG日志', 'icon' => 'el-icon-tickets', 'path' => '/exceptionErrors/logFiles', 'component' => 'exceptionError/logFiles', 'guard_name' => 'admin', 'hidden' => 0]);
@@ -87,6 +89,7 @@ class PermissionSeeder extends Seeder
             'admin.delete',
             'admin.syncPermissions',
             'activeLog.activeLogs',
+            'nginx.logs',
             'exceptionError.exceptionErrors',
             'exceptionError.amended',
             'exceptionError.logFiles',

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ExceptionErrorController;
 use App\Http\Controllers\Admin\FileSystemController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\NginxController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -86,6 +87,8 @@ Route::middleware(['lang'])->prefix('admin')->name('admin.')->group(function () 
             Route::post('file/upload', [FileSystemController::class, 'upload'])->middleware('permission:file.upload');
             Route::post('file/download', [FileSystemController::class, 'download'])->middleware('permission:file.download');
             Route::post('file/delete', [FileSystemController::class, 'delete'])->middleware('permission:file.delete');
+            // NGINX
+            Route::post('nginx/logs', [NginxController::class, 'logs']);// ->middleware('permission:nginx.logs')
         });
     });
 });

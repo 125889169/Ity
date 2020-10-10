@@ -86,5 +86,16 @@ return [
     'notification' => [
         'message' => 'message',
         'is_read' => 'is_read',
+    ],
+    'nginx' => [
+        'file' => 'File',
+        'ip' => 'Ip',
+        'method' => 'Method',
+        'uri' => 'Request Uri',
+        'http_code' => 'Code',
+        'is_warning' => 'Warning',
+        'is_error' => 'Error',
+        'is_robot' => 'Robot',
+        'is_mobile' => 'Mobile',
     ]
 ];
