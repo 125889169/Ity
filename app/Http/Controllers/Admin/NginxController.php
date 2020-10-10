@@ -30,6 +30,9 @@ class NginxController extends Controller
             $logs = $logs->when(isset($validated['method']), function ($logs) use ($validated) {
                 return $logs->where('method', $validated['method']);
             });
+            $logs = $logs->when(isset($validated['http_code']), function ($logs) use ($validated) {
+                return $logs->where('http_code', $validated['http_code']);
+            });
             $logs = $logs->when(isset($validated['uri']), function ($logs) use ($validated) {
                 return $logs->where('uri', $validated['uri']);
             });
