@@ -46,7 +46,11 @@ class NginxLog
                             $keyword = trim(str_replace(['[', ']', '- admin '], '', $keyword));
                             list($ip, $time, $timeZone) = explode(' ', $keyword);
                             $array['ip'] = $ip;
-                            $array['time'] = Carbon::create($time . ' ' . $timeZone)->format('Y-m-d H:i:s');
+                            try {
+                                $array['time'] = Carbon::create($time . ' ' . $timeZone)->format('Y-m-d H:i:s');
+                            } catch (\ErrorException $errorException) {
+                                $array['time'] = '';
+                            }
                             break;
                         case 1:
                             try {
