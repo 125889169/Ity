@@ -37,20 +37,16 @@ class NginxLog
                 return $value !== '';
             })
             ->map(function ($item) {
-                $string = Str::replaceArray('- - ', [''], $item);
+                $string = Str::replaceArray('- ', [''], $item);
                 $keywords = preg_split("/[\"*]/", $string);
                 $array = [];
                 foreach ($keywords as $key => $keyword) {
                     switch ($key) {
                         case 0:
-                            $keyword = trim(str_replace(['[', ']', '- admin '], '', $keyword));
-                            list($ip, $time, $timeZone) = explode(' ', $keyword);
+                            $keyword = trim(str_replace(['[', ']'], '', $keyword));
+                            list($ip, $user, $time, $timeZone) = explode(' ', $keyword);
                             $array['ip'] = $ip;
-                            try {
-                                $array['time'] = Carbon::create($time . ' ' . $timeZone)->format('Y-m-d H:i:s');
-                            } catch (\ErrorException $errorException) {
-                                $array['time'] = '';
-                            }
+                            $array['time'] = Carbon::create($time . ' ' . $timeZone)->format('Y-m-d H:i:s');
                             break;
                         case 1:
                             try {
