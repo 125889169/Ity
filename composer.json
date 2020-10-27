@@ -22,7 +22,8 @@
         "spatie/laravel-activitylog": "^3.14",
         "spatie/laravel-permission": "^3.13",
         "tymon/jwt-auth": "^1.0",
-        "workerman/gateway-worker": "^3.0"
+        "workerman/gateway-worker": "^3.0",
+        "workerman/workerman": "^3.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.7",
