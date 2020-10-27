@@ -78,7 +78,7 @@ class GuardRequest extends FormRequest
         $guardName = $this->post('guard_name', '');
         switch ($guardName) {
             case 'api' :
-                return 'App\User';
+                return 'App\Models\User';
             case 'admin' :
                 return 'App\Models\Admin';
             default :

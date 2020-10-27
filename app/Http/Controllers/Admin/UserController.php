@@ -7,7 +7,7 @@ use App\Http\Requests\Admin\User\CreateRequest;
 use App\Http\Requests\Admin\User\GetListRequest;
 use App\Http\Requests\Admin\User\UpdateRequest;
 use App\Http\Response\ApiCode;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;

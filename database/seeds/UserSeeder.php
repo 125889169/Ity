@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = new \App\User;
+        $user = new \App\Models\User;
         $user->name = 'user';
         $user->email = 'user@ity.com';
         $user->password = \Illuminate\Support\Facades\Hash::make('123456');
