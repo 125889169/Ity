@@ -18,7 +18,8 @@ class WorkerMan extends Command
      */
     protected $signature = 'workerman
                             {action : action}
-                            {--start=all : start}';
+                            {--start=all : start}
+                            {--d : daemon mode}';
 
     /**
      * The console command description.
@@ -46,7 +47,9 @@ class WorkerMan extends Command
      */
     public function handle()
     {
+        global $argv;
         $action = $this->argument('action');
+
         // 针对 Windows 一次执行，无法注册多个协议的特殊处理
         if ($action === 'single') {
             $start = $this->option('start');
@@ -61,6 +64,10 @@ class WorkerMan extends Command
             return;
         }
 
+
+        $options = $this->options();
+        $argv[1] = $action;
+        $argv[2] = $options['d'] ? '-d' : '';
         $this->start();
     }
 
