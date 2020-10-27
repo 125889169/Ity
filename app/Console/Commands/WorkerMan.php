@@ -67,7 +67,7 @@ class WorkerMan extends Command
 
         $argv[0] = 'workerman:server';
         $argv[1] = $action;
-        $argv[2] = $this->option('d') ? ' -d' : '';
+        $argv[2] = $this->option('d') ? '-d' : '';
 
         $this->start();
     }
