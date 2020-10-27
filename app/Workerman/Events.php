@@ -9,6 +9,7 @@ use App;
 use App\Http\Response\ApiCode;
 use GatewayWorker\BusinessWorker;
 use GuzzleHttp\Exception\InvalidArgumentException;
+use GuzzleHttp\Utils;
 use Illuminate\Support\Facades\Auth;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -99,7 +100,7 @@ class Events
         // cmd
         $type = ['type' => __FUNCTION__];
         try {
-            $message = \GuzzleHttp\json_decode($message);
+            $message = Utils::jsonDecode($message);
             if (is_object($message) && isset($message->route) && is_string($message->route)) {
                 GateWay::cmd($clientId, $message->route, collect($message->data ?? null));
             } else {

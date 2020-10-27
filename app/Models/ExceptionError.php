@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use GuzzleHttp\Utils;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -101,7 +102,7 @@ class ExceptionError extends Model
      */
     public function getTraceAttribute($value)
     {
-        return \GuzzleHttp\json_decode($value, true);
+        return Utils::jsonDecode($value, true);
     }
 
     /**
@@ -110,7 +111,7 @@ class ExceptionError extends Model
      */
     public function setTraceAttribute($value): void
     {
-        $this->attributes['trace'] = \GuzzleHttp\json_encode($value);
+        $this->attributes['trace'] = Utils::jsonEncode($value);
     }
 
     /**

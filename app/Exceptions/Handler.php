@@ -11,6 +11,7 @@ use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\UnauthorizedException;
@@ -77,7 +78,7 @@ class Handler extends ExceptionHandler
      */
     protected function isAuthorizationException(Throwable $exception)
     {
-        return $exception instanceof AuthorizationException;
+        return $exception instanceof AuthorizationException || ($exception instanceof HttpException && $exception->getStatusCode() === ApiCode::HTTP_FORBIDDEN);
     }
 
     /**

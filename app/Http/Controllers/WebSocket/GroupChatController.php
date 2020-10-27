@@ -28,16 +28,18 @@ class GroupChatController extends WebSocketController
                 ->build();
             $groupChat = Cache::store('redis')->get('groupChat', collect());
             $admin = GateWay::getUserByClientId($this->clientId);
-            $content = collect([
-                [
-                    'clientId' => $admin->id,
-                    'name' => $admin->name,
-                    'message' => $message,
-                    'created_at' => Carbon::now(config('app.timezone'))->toISOString(),
-                ]
-            ]);
-            $merged = $groupChat->merge($content);
-            Cache::store('redis')->put('groupChat', $merged);
+            if ($admin !== null) {
+                $content = collect([
+                    [
+                        'clientId' => $admin->id,
+                        'name' => $admin->name,
+                        'message' => $message,
+                        'created_at' => Carbon::now(config('app.timezone'))->toISOString(),
+                    ]
+                ]);
+                $merged = $groupChat->merge($content);
+                Cache::store('redis')->put('groupChat', $merged);
+            }
             GateWay::sendResponseToAll($response);
         } catch (\Exception $e) {
 
@@ -63,7 +65,6 @@ class GroupChatController extends WebSocketController
 
     public function getChatRecord()
     {
-        $admin = GateWay::getUserByClientId($this->clientId);
         $groupChat = Cache::store('redis')->get('groupChat', collect());
         $response = ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
             ->withData([

@@ -4,6 +4,7 @@
 namespace App\Workerman;
 
 use GatewayWorker\Lib\Gateway AS LibGateWay;
+use GuzzleHttp\Utils;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Psr\Log\LoggerInterface;
@@ -27,7 +28,7 @@ class GateWay extends LibGateWay
      */
     public static function bindUser(string $clientId, JWTSubject $info): void
     {
-        parent::bindUid($clientId, \GuzzleHttp\json_encode([
+        parent::bindUid($clientId, Utils::jsonEncode([
             'model' => get_class($info),
             'id' => $info->id
         ]));
@@ -35,12 +36,15 @@ class GateWay extends LibGateWay
 
     /**
      * @param string $clientId
-     * @return JWTSubject
+     * @return JWTSubject|null
      */
-    public static function getUserByClientId(string $clientId): JWTSubject
+    public static function getUserByClientId(string $clientId): ?JWTSubject
     {
         $uid = parent::getUidByClientId($clientId);
-        $info = \GuzzleHttp\json_decode($uid);
+        if ($uid === null) {
+            return null;
+        }
+        $info = Utils::jsonDecode($uid);
         $model = new $info->model;
         return $model->find($info->id);
     }
