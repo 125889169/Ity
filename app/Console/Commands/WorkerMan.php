@@ -66,7 +66,6 @@ class WorkerMan extends Command
 
 
         $options = $this->options();
-
         $argv[0] = 'wk';
         $argv[1] = $action;
         $argv[2] = $options['d'] ? '-d' : '';
@@ -91,7 +90,7 @@ class WorkerMan extends Command
         // 指定websocket协议
         $gateway = new Gateway(config('app.websocket_url'));
         $gateway->name                 = 'Gateway ' . config('app.name');
-        $gateway->count                = 4; // CPU核数
+        $gateway->count                = 1; // CPU核数
         $gateway->lanIp                = '127.0.0.1';
         $gateway->startPort            = 2300;
         $gateway->pingInterval         = 30; // 心跳检测时间间隔 单位：秒。如果设置为0代表不做任何心跳检测
@@ -108,7 +107,7 @@ class WorkerMan extends Command
     {
         $worker                  = new BusinessWorker();
         $worker->name            = 'BusinessWorker ' . config('app.name');
-        $worker->count           = 10; // CPU核数 1-3倍
+        $worker->count           = 3; // CPU核数 1-3倍
         $worker->registerAddress = '127.0.0.1:1236';
         $worker->eventHandler    = \App\Workerman\Events::class;
     }
