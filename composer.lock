@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89560cb177a13d91ce7da2ffe0e75f27",
+    "content-hash": "b2a19beb82910a3befa9b78d4af0c303",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5810,16 +5810,16 @@
         },
         {
             "name": "workerman/workerman",
-            "version": "v4.0.14",
+            "version": "v3.5.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/Workerman.git",
-                "reference": "53c756ae72d9661bee25eca009435267f3c9f80c"
+                "reference": "b73ddc45b3c7299f330923a2bde23ca6e974fd96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/Workerman/zipball/53c756ae72d9661bee25eca009435267f3c9f80c",
-                "reference": "53c756ae72d9661bee25eca009435267f3c9f80c",
+                "url": "https://api.github.com/repos/walkor/Workerman/zipball/b73ddc45b3c7299f330923a2bde23ca6e974fd96",
+                "reference": "b73ddc45b3c7299f330923a2bde23ca6e974fd96",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -5858,7 +5858,7 @@
                 "asynchronous",
                 "event-loop"
             ],
-            "time": "2020-10-17T04:17:27+00:00"
+            "time": "2020-08-24T03:49:23+00:00"
         }
     ],
     "packages-dev": [
