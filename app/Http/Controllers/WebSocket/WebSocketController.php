@@ -13,7 +13,7 @@ class WebSocketController extends Controller implements WebSocket
 
     /**
      * WebSocket constructor.
-     * @param string $clientId 全局唯一的客户端socket连接标识
+     * @param string|null $clientId 全局唯一的客户端socket连接标识
      */
     public function __construct(string $clientId = null)
     {
