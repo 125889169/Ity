@@ -116,6 +116,11 @@ class FileSystemController extends Controller
             } else {
                 $path = $fileSystem->putFile($request);
             }
+            activity()
+                ->useLog('file')
+                ->causedBy($request->user())
+                ->withProperties($path)
+                ->log(':causer.name 上次了文件');
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withMessage(__('message.common.create.success'))
