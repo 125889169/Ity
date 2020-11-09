@@ -20,7 +20,7 @@ class UpdateRequest extends FormRequest
     public function authorize()
     {
         try {
-            $this->permission = Permission::findById($this->post('id', 0));
+            $this->permission = Permission::find($this->post('id', 0));
         } catch (PermissionDoesNotExist $exception) {
             return false;
         }

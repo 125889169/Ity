@@ -28,7 +28,7 @@ class PermissionController extends Controller
     {
         $id = $request->post('id', 0);
         try {
-            $permission = Permission::findById($id);
+            $permission = Permission::find($id);
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withData($permission)

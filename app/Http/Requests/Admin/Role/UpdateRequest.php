@@ -19,7 +19,7 @@ class UpdateRequest extends FormRequest
     public function authorize()
     {
         try {
-            $this->role = Role::findById($this->post('id', 0));
+            $this->role = Role::find($this->post('id', 0));
         } catch (RoleDoesNotExist $exception) {
             return false;
         }
