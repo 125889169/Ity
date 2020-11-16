@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use GuzzleHttp\Utils;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -16,6 +18,7 @@ use Illuminate\Support\Str;
  * @property string $file
  * @property int $line
  * @property mixed $trace
+ * @property string $trace_as_string
  * @property bool $is_solve 是否解决 0为解决 1已解决
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -31,6 +34,7 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ExceptionError whereMessage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ExceptionError whereTrace($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ExceptionError whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ExceptionError whereTraceAsString($value)
  * @mixin \Eloquent
  */
 class ExceptionError extends Model
@@ -55,7 +59,7 @@ class ExceptionError extends Model
      * @var array
      */
     protected $fillable = [
-        'message', 'code', 'file', 'line', 'trace', 'is_solve'
+        'message', 'code', 'file', 'line', 'trace', 'trace_as_string', 'is_solve'
     ];
 
     /**
@@ -115,6 +119,21 @@ class ExceptionError extends Model
     }
 
     /**
+     * 自定义异常字符串
+     *
+     * @param $value
+     */
+    public function setTraceAsStringAttribute($value): void
+    {
+        $this->attributes['trace_as_string'] =
+            '[' . Carbon::now()->format('Y-m-d H:i:s') . '] ' . App::environment() . '.ERROR: '
+            . $this->attributes['message']
+            . ' at ' . $this->attributes['file'] . ':' . $this->attributes['line']
+            . "\n"
+            . $value;
+    }
+
+    /**
      * 获取列表
      *
      * @param array $validated
@@ -141,7 +160,7 @@ class ExceptionError extends Model
 
         $total = $model->count('id');
 
-        $logs = $model->select(['id', 'message', 'code', 'file', 'line', 'trace', 'is_solve', 'created_at', 'updated_at'])
+        $logs = $model->select(['id', 'message', 'code', 'file', 'line', 'trace', 'trace_as_string', 'is_solve', 'created_at', 'updated_at'])
             ->orderBy($validated['sort'] ?? 'updated_at', $validated['order'] === 'ascending' ? 'asc' : 'desc')
             ->offset(($validated['offset'] - 1) * $validated['limit'])
             ->limit($validated['limit'])

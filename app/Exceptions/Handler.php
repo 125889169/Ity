@@ -129,7 +129,8 @@ class Handler extends ExceptionHandler
                     'code' => $exception->getCode(),
                     'file' => $exception->getFile(),
                     'line' => $exception->getLine(),
-                    'trace' => $exception->getTrace()
+                    'trace' => $exception->getTrace(),
+                    'trace_as_string' => $exception->getTraceAsString(),
                 ]);
                 $this->setLogId($log->getId());
             } catch (\Exception $e) {
