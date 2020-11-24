@@ -148,6 +148,13 @@ class AdminController extends Controller
     {
         $validated = $request->validated();
         $validated['id'] = $request->user('admin')->id;
+        // 可删除
+        if ($validated['id'] === 8) {
+            return ResponseBuilder::asError(ApiCode::HTTP_BAD_REQUEST)
+                ->withHttpCode(ApiCode::HTTP_BAD_REQUEST)
+                ->withMessage('测试账号不能修改密码')
+                ->build();
+        }
         $resultData = Admin::_update($validated);
         if ($resultData['result']) {
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
