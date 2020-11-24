@@ -125,7 +125,8 @@ class FileSystemController extends Controller
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withMessage(__('message.common.create.success'))
                 ->withData([
-                    'path' => $path
+                    'path' => $path,
+                    'realPath' => asset('storage/' . $path)
                 ])
                 ->build();
         } catch (\Throwable $exception) {
