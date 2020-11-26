@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Workerman\Events;
 use GatewayWorker\BusinessWorker;
 use GatewayWorker\Gateway;
 use GatewayWorker\Register;
@@ -107,7 +108,7 @@ class WorkerMan extends Command
         $worker->name            = 'BusinessWorker ' . config('app.name');
         $worker->count           = 3; // CPU核数 1-3倍
         $worker->registerAddress = '127.0.0.1:1236';
-        $worker->eventHandler    = \App\Workerman\Events::class;
+        $worker->eventHandler    = Events::class;
     }
 
     /**

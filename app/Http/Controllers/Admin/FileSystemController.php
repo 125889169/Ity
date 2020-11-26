@@ -10,10 +10,10 @@ use App\Http\Requests\Admin\FileSystem\UploadRequest;
 use App\Http\Response\ApiCode;
 use App\Util\FileSystem;
 use Illuminate\Http\Request;
-use League\Flysystem\FileNotFoundException;
 use LogicException;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class FileSystemController extends Controller
 {
@@ -129,7 +129,7 @@ class FileSystemController extends Controller
                     'realPath' => asset('storage/' . $path)
                 ])
                 ->build();
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return ResponseBuilder::asError(ApiCode::HTTP_BAD_REQUEST)
                 ->withHttpCode(ApiCode::HTTP_BAD_REQUEST)
                 ->withMessage($exception->getMessage())
@@ -147,18 +147,11 @@ class FileSystemController extends Controller
     {
         $validated = $request->validated();
         $fileSystem = new FileSystem('');
-        try {
-            activity()
-                ->useLog('file')
-                ->causedBy($request->user())
-                ->log(':causer.name 下载了文件 ' . $validated['file']);
-            return $fileSystem->download($validated['file']);
-        } catch (FileNotFoundException $exception) {
-            return ResponseBuilder::asError(ApiCode::HTTP_BAD_REQUEST)
-                ->withHttpCode(ApiCode::HTTP_BAD_REQUEST)
-                ->withMessage($exception->getMessage())
-                ->build();
-        }
+        activity()
+            ->useLog('file')
+            ->causedBy($request->user())
+            ->log(':causer.name 下载了文件 ' . $validated['file']);
+        return $fileSystem->download($validated['file']);
     }
 
     /**

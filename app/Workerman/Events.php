@@ -1,18 +1,15 @@
 <?php
 
-
 namespace App\Workerman;
-
-
 
 use App;
 use App\Http\Response\ApiCode;
+use Exception;
 use GatewayWorker\BusinessWorker;
 use GuzzleHttp\Exception\InvalidArgumentException;
 use GuzzleHttp\Utils;
 use Illuminate\Support\Facades\Auth;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Providers\Auth\Illuminate;
 use Tymon\JWTAuth\Token;
@@ -26,7 +23,7 @@ class Events
      */
     public static function onWorkerStart(BusinessWorker $businessWorker): void
     {
-        GateWay::Log()->info('OnWorkerStart', [
+        GateWay::log()->info('OnWorkerStart', [
             'registerAddress' => $businessWorker->registerAddress,
             'name' => $businessWorker->name,
             'count' => $businessWorker->count,
@@ -43,7 +40,6 @@ class Events
      */
     public static function onConnect(string $clientId): void
     {
-
     }
 
     /**
@@ -57,34 +53,22 @@ class Events
         $locale = isset($data['get']['lang']) ? $data['get']['lang'] : 'en';
         App::setLocale($locale);
         if (isset($data['get']['token'])) {
-            try {
-                $token = new Token($data['get']['token']);
-                $jwt = JWTAuth::setToken($token);
-                $JWTAuth = new \Tymon\JWTAuth\JWTAuth(
-                    JWTAuth::manager(),
-                    new Illuminate(Auth::guard($jwt->getClaim('role'))),
-                    JWTAuth::parser()
-                );
-                $info = $JWTAuth->setToken($token)->authenticate(); // info
-                Gateway::bindUser($clientId, $info);
-                $return = ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
-                    ->withData([
-                        'type' => __FUNCTION__,
-                        'clientId' => $info->id
-                    ])
-                    ->withMessage(__('message.common.bind.success'))
-                    ->build();
-            } catch (\ErrorException $exception) {
-                $return = ResponseBuilder::asError(ApiCode::HTTP_BAD_REQUEST)
-                    ->withData(['type' => __FUNCTION__])
-                    ->withMessage(__('message.common.bind.fail'))
-                    ->build();
-            } catch (TokenInvalidException $exception) {
-                $return = ResponseBuilder::asError(ApiCode::HTTP_UNAUTHORIZED)
-                    ->withData(['type' => __FUNCTION__])
-                    ->withMessage(__('message.common.bind.fail'))
-                    ->build();
-            }
+            $token = new Token($data['get']['token']);
+            $jwt = JWTAuth::setToken($token);
+            $JWTAuth = new \Tymon\JWTAuth\JWTAuth(
+                JWTAuth::manager(),
+                new Illuminate(Auth::guard($jwt->getClaim('role'))),
+                JWTAuth::parser()
+            );
+            $info = $JWTAuth->setToken($token)->authenticate(); // info
+            Gateway::bindUser($clientId, $info);
+            $return = ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
+                ->withData([
+                    'type' => __FUNCTION__,
+                    'clientId' => $info->id
+                ])
+                ->withMessage(__('message.common.bind.success'))
+                ->build();
             Gateway::sendResponseToClient($clientId, $return);
         }
     }
@@ -136,8 +120,7 @@ class Events
                 ->withMessage(__('message.common.search.success'))
                 ->build();
             GateWay::sendResponseToAll($response);
-        } catch (\Exception $e) {
-
+        } catch (Exception $e) {
         }
     }
 }

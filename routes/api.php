@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware([])->namespace('Home')->name('home.')->group(function () {
-
 });
 
 Route::middleware(['lang'])->prefix('admin')->name('admin.')->group(function () {
@@ -43,19 +41,28 @@ Route::middleware(['lang'])->prefix('admin')->name('admin.')->group(function () 
         Route::post('notification/send', [NotificationController::class, 'send']);
         Route::middleware(['auth:admin', 'auth.status:admin'])->group(function () {
             // 权限
-            Route::post('permission/create', [PermissionController::class, 'create'])->middleware('permission:permission.create');
-            Route::post('permission/update',  [PermissionController::class, 'update'])->middleware('permission:permission.update');
-            Route::post('permission/delete', [PermissionController::class, 'delete'])->middleware('permission:permission.delete');
-            Route::post('permission', [PermissionController::class, 'permission'])->middleware('permission:permission.permission');
-            Route::post('permissions', [PermissionController::class, 'permissions'])->middleware('permission:permission.permissions');
-            Route::post('permission/tree', [PermissionController::class, 'permissionsTree'])->middleware('permission:permission.permissions');
-            Route::post('permission/drop', [PermissionController::class, 'drop'])->middleware('permission:permission.update');
+            Route::post('permission/create', [PermissionController::class, 'create'])
+                ->middleware('permission:permission.create');
+            Route::post('permission/update', [PermissionController::class, 'update'])
+                ->middleware('permission:permission.update');
+            Route::post('permission/delete', [PermissionController::class, 'delete'])
+                ->middleware('permission:permission.delete');
+            Route::post('permission', [PermissionController::class, 'permission'])
+                ->middleware('permission:permission.permission');
+            Route::post('permissions', [PermissionController::class, 'permissions'])
+                ->middleware('permission:permission.permissions');
+            Route::post('permission/tree', [PermissionController::class, 'permissionsTree'])
+                ->middleware('permission:permission.permissions');
+            Route::post('permission/drop', [PermissionController::class, 'drop'])
+                ->middleware('permission:permission.update');
             // 角色
             Route::post('role/create', [RoleController::class, 'create'])->middleware('permission:role.create');
             Route::post('role/update', [RoleController::class, 'update'])->middleware('permission:role.update');
             Route::post('role/delete', [RoleController::class, 'delete'])->middleware('permission:role.delete');
-            Route::post('role/syncPermissions', [RoleController::class, 'syncPermissions'])->middleware('permission:role.syncPermissions');
-            Route::post('role/syncRoles', [RoleController::class, 'syncRoles'])->middleware('permission:role.syncRoles');
+            Route::post('role/syncPermissions', [RoleController::class, 'syncPermissions'])
+                ->middleware('permission:role.syncPermissions');
+            Route::post('role/syncRoles', [RoleController::class, 'syncRoles'])
+                ->middleware('permission:role.syncRoles');
             Route::post('role', [RoleController::class, 'role'])->middleware('permission:role.role');
             Route::post('roles', [RoleController::class, 'roles'])->middleware('permission:role.roles');
             Route::post('role/all', [RoleController::class, 'allRoles'])->middleware('permission:role.roles');
@@ -69,23 +76,32 @@ Route::middleware(['lang'])->prefix('admin')->name('admin.')->group(function () 
             Route::post('admin/create', [AdminController::class, 'create'])->middleware('permission:admin.create');
             Route::post('admin/update', [AdminController::class, 'update'])->middleware('permission:admin.update');
             Route::post('admin/delete', [AdminController::class, 'delete'])->middleware('permission:admin.delete');
-            Route::post('admin/syncPermissions', [AdminController::class, 'syncPermissions'])->middleware('permission:admin.syncPermissions');
+            Route::post('admin/syncPermissions', [AdminController::class, 'syncPermissions'])
+                ->middleware('permission:admin.syncPermissions');
             Route::post('admin/updateSelf', [AdminController::class, 'updateSelf']);
             Route::post('admins', [AdminController::class, 'admins'])->middleware('permission:admin.admins');
             Route::post('admin', [AdminController::class, 'admin'])->middleware('permission:admin.admin');
             // 操作记录
-            Route::post('active/logs', [ActiveLogController::class, 'logs'])->middleware('permission:activeLog.activeLogs');
+            Route::post('active/logs', [ActiveLogController::class, 'logs'])
+                ->middleware('permission:activeLog.activeLogs');
             // 异常记录
-            Route::post('exception/logs', [ExceptionErrorController::class, 'logs'])->middleware('permission:exceptionError.exceptionErrors');
-            Route::post('exception/log/files', [ExceptionErrorController::class, 'files'])->middleware('permission:exceptionError.logFiles');
-            Route::post('exception/log/file', [ExceptionErrorController::class, 'file'])->middleware('permission:exceptionError.logFiles');
-            Route::post('exception/amended', [ExceptionErrorController::class, 'amended'])->middleware('permission:exceptionError.amended');
+            Route::post('exception/logs', [ExceptionErrorController::class, 'logs'])
+                ->middleware('permission:exceptionError.exceptionErrors');
+            Route::post('exception/log/files', [ExceptionErrorController::class, 'files'])
+                ->middleware('permission:exceptionError.logFiles');
+            Route::post('exception/log/file', [ExceptionErrorController::class, 'file'])
+                ->middleware('permission:exceptionError.logFiles');
+            Route::post('exception/amended', [ExceptionErrorController::class, 'amended'])
+                ->middleware('permission:exceptionError.amended');
             // 文件
             Route::post('files', [FileSystemController::class, 'files'])->middleware('permission:file.files');
-            Route::post('file/makeDirectory', [FileSystemController::class, 'makeDirectory'])->middleware('permission:file.makeDirectory');
-            Route::post('file/deleteDirectory', [FileSystemController::class, 'deleteDirectory'])->middleware('permission:file.deleteDirectory');
+            Route::post('file/makeDirectory', [FileSystemController::class, 'makeDirectory'])
+                ->middleware('permission:file.makeDirectory');
+            Route::post('file/deleteDirectory', [FileSystemController::class, 'deleteDirectory'])
+                ->middleware('permission:file.deleteDirectory');
             Route::post('file/upload', [FileSystemController::class, 'upload'])->middleware('permission:file.upload');
-            Route::post('file/download', [FileSystemController::class, 'download'])->middleware('permission:file.download');
+            Route::post('file/download', [FileSystemController::class, 'download'])
+                ->middleware('permission:file.download');
             Route::post('file/delete', [FileSystemController::class, 'delete'])->middleware('permission:file.delete');
             // NGINX
             Route::post('nginx/logs', [NginxController::class, 'logs']);// ->middleware('permission:nginx.logs')

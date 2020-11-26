@@ -1,10 +1,7 @@
 <?php
 
-
 namespace App\Http\Controllers\WebSocket;
 
-
-use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 interface WebSocket

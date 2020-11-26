@@ -4,14 +4,13 @@ namespace App\Exceptions;
 
 use App\Http\Response\ApiCode;
 use App\Models\ExceptionError;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
-use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\UnauthorizedException;
@@ -78,7 +77,8 @@ class Handler extends ExceptionHandler
      */
     protected function isAuthorizationException(Throwable $exception)
     {
-        return $exception instanceof AuthorizationException || ($exception instanceof HttpException && $exception->getStatusCode() === ApiCode::HTTP_FORBIDDEN);
+        return $exception instanceof AuthorizationException ||
+            ($exception instanceof HttpException && $exception->getStatusCode() === ApiCode::HTTP_FORBIDDEN);
     }
 
     /**
@@ -110,7 +110,10 @@ class Handler extends ExceptionHandler
     protected function isMaintenanceModeException(Throwable $exception)
     {
         return $exception instanceof MaintenanceModeException
-            || ($exception instanceof HttpException && $exception->getStatusCode() === ApiCode::HTTP_SERVICE_UNAVAILABLE);
+            || (
+                $exception instanceof HttpException &&
+                $exception->getStatusCode() === ApiCode::HTTP_SERVICE_UNAVAILABLE
+            );
     }
 
     /**
@@ -133,7 +136,7 @@ class Handler extends ExceptionHandler
                     'trace_as_string' => $exception->getTraceAsString(),
                 ]);
                 $this->setLogId($log->getId());
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
 
             }
         }
@@ -173,7 +176,7 @@ class Handler extends ExceptionHandler
      * @param \Throwable $exception
      * @return void
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function report(Throwable $exception)
     {

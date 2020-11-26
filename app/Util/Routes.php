@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Util;
-
 
 use App\Models\Admin;
 use Illuminate\Support\Collection;
@@ -89,7 +87,9 @@ class Routes
             // 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
             $info['hidden'] = $value['hidden'] ? true : false;
             // 当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
-            if ($value['component'] === 'layout/Layout' || $value['component'] === 'rview') $info['redirect'] = 'noRedirect';
+            if ($value['component'] === 'layout/Layout' || $value['component'] === 'rview') {
+                $info['redirect'] = 'noRedirect';
+            }
             return $info;
         });
     }
@@ -123,7 +123,6 @@ class Routes
         }
 
         return collect($permissions);
-
     }
 
     /**
@@ -143,6 +142,4 @@ class Routes
         $this->admin = $admin;
         return $this;
     }
-
-
 }

@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Util;
-
 
 use App\Http\Response\ApiCode;
 use Carbon\Carbon;
+use ErrorException;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -46,6 +45,7 @@ class NginxLog
                             $keyword = trim(str_replace(['[', ']'], '', $keyword));
                             list($ip, $user, $time, $timeZone) = explode(' ', $keyword);
                             $array['ip'] = $ip;
+                            $array['user'] = $user;
                             $array['time'] = Carbon::create($time . ' ' . $timeZone)->format('Y-m-d H:i:s');
                             break;
                         case 1:
@@ -54,7 +54,7 @@ class NginxLog
                                 $array['method'] = $method;
                                 $array['uri'] = $uri;
                                 $array['http'] = $http;
-                            } catch (\ErrorException $errorException) {
+                            } catch (ErrorException $errorException) {
                                 $array['method'] = $keyword;
                                 $array['uri'] = $keyword;
                                 $array['http'] = $keyword;
@@ -65,7 +65,7 @@ class NginxLog
                                 list($httpCode, $size) = explode(' ', trim($keyword));
                                 $array['http_code'] = $httpCode;
                                 $array['size'] = $size;
-                            } catch (\ErrorException $errorException) {
+                            } catch (ErrorException $errorException) {
                                 $array['http_code'] = 'UnKnow';
                                 $array['size'] = 'UnKnow';
                             }
@@ -91,8 +91,8 @@ class NginxLog
                 $item['user_agent_info']['platform'] = $ua->platform();
                 $item['user_agent_info']['browser'] = $ua->browser();
                 $item['user_agent_info']['version'] = $ua->version();
-                $item['is_robot'] = $ua->is_robot();
-                $item['is_mobile'] = $ua->is_mobile();
+                $item['is_robot'] = $ua->isRobot();
+                $item['is_mobile'] = $ua->isMobile();
                 return $item;
             })
             ->map(function ($item) {
@@ -102,6 +102,7 @@ class NginxLog
                 } else {
                     $item['is_warning'] = true;
                 }
+                return $item;
             })
             ->map(function ($item) {
                 $item['is_error'] = !ApiCode::isSuccessful($item['http_code']);

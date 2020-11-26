@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Activity\GetListRequest;
 use App\Http\Response\ApiCode;
 use App\Models\Activity;
-use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
 

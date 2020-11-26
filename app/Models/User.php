@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -143,7 +142,7 @@ class User extends Authenticatable implements JWTSubject
      * @param array $data
      * @return array
      */
-    public static function _update(array $data)
+    public static function updateSave(array $data)
     {
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);

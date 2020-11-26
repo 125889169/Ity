@@ -10,8 +10,8 @@ use App\Http\Requests\Admin\Permission\PermissionTreeRequest;
 use App\Http\Requests\Admin\Permission\UpdateRequest;
 use App\Http\Response\ApiCode;
 use App\Models\Permission;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\PermissionDoesNotExist;
 use Symfony\Component\HttpFoundation\Response;
@@ -129,7 +129,6 @@ class PermissionController extends Controller
         $permission = Permission::find($id);
         $result = $permission->update($validated);
         if ($result) {
-
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withData($permission)
@@ -149,6 +148,7 @@ class PermissionController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function delete(Request $request): Response
     {

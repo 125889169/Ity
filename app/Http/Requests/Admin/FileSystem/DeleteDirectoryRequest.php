@@ -27,7 +27,14 @@ class DeleteDirectoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'directory' => ['required', 'string', 'between:1,60', new EmojiChar, new ParentDirectory, new ContinuousCharacter],
+            'directory' => [
+                'required',
+                'string',
+                'between:1,60',
+                new EmojiChar,
+                new ParentDirectory,
+                new ContinuousCharacter
+            ],
         ];
     }
 

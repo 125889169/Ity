@@ -83,15 +83,17 @@ class Activity extends \Spatie\Activitylog\Models\Activity
 
         $total = $model->count('id');
 
-        $logs = $model->select(['id', 'log_name', 'description', 'subject_id', 'subject_type', 'causer_id', 'causer_type',
-                'properties', 'created_at'])
+        $logs = $model->select([
+            'id', 'log_name', 'description', 'subject_id', 'subject_type', 'causer_id', 'causer_type',
+            'properties', 'created_at'])
             ->orderBy($validated['sort'] ?? 'created_at', $validated['order'] === 'ascending' ? 'asc' : 'desc')
             ->offset(($validated['offset'] - 1) * $validated['limit'])
             ->limit($validated['limit'])
             ->get();
 
         $logNames = Activity::whereNotNull('log_name')->groupBy('log_name')->pluck('log_name')->toArray();
-        $subjectType = Activity::whereNotNull('subject_type')->groupBy('subject_type')->pluck('subject_type')->toArray();
+        $subjectType = Activity::whereNotNull('subject_type')
+            ->groupBy('subject_type')->pluck('subject_type')->toArray();
         $causerType = Activity::whereNotNull('causer_type')->groupBy('causer_type')->pluck('causer_type')->toArray();
 
         return [

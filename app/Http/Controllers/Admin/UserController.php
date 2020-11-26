@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\User\GetListRequest;
 use App\Http\Requests\Admin\User\UpdateRequest;
 use App\Http\Response\ApiCode;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,9 +80,8 @@ class UserController extends Controller
     public function update(UpdateRequest $request): Response
     {
         $validated = $request->validated();
-        $resultData = User::_update($validated);
+        $resultData = User::updateSave($validated);
         if ($resultData['result']) {
-
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withData($resultData['user'])
@@ -93,7 +93,6 @@ class UserController extends Controller
             ->withHttpCode(ApiCode::HTTP_BAD_REQUEST)
             ->withMessage(__('message.common.update.fail'))
             ->build();
-
     }
 
     /**
@@ -101,6 +100,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function delete(Request $request): Response
     {

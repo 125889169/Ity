@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Util;
-
 
 class UserAgent
 {
@@ -183,12 +181,12 @@ class UserAgent
     {
         if ($agent != '') {
             $this->agent = $agent;
-        } else if (isset($_SERVER['HTTP_USER_AGENT'])) {
+        } elseif (isset($_SERVER['HTTP_USER_AGENT'])) {
             $this->agent = trim($_SERVER['HTTP_USER_AGENT']);
         }
 
         if (!is_null($this->agent)) {
-            $this->_compile_data();
+            $this->compileData();
         }
     }
 
@@ -199,11 +197,11 @@ class UserAgent
      *
      * @access    private
      */
-    private function _compile_data()
+    private function compileData()
     {
-        $this->_set_platform();
+        $this->setPlatform();
 
-        foreach (array('_set_robot', '_set_browser', '_set_mobile') as $function) {
+        foreach (array('setRobot', 'setBrowser', 'setMobile') as $function) {
             if ($this->$function() === true) {
                 break;
             }
@@ -217,7 +215,7 @@ class UserAgent
      *
      * @access    private
      */
-    private function _set_platform()
+    private function setPlatform()
     {
         if (is_array($this->platforms) and count($this->platforms) > 0) {
             foreach ($this->platforms as $key => $val) {
@@ -228,6 +226,7 @@ class UserAgent
             }
         }
         $this->platform = 'Unknown Platform';
+        return false;
     }
 
     // --------------------------------------------------------------------
@@ -238,7 +237,7 @@ class UserAgent
      * @access    private
      * @return    bool
      */
-    private function _set_browser()
+    private function setBrowser()
     {
         if (is_array($this->browsers) and count($this->browsers) > 0) {
             foreach ($this->browsers as $key => $val) {
@@ -246,7 +245,7 @@ class UserAgent
                     $this->is_browser = true;
                     $this->version = $match[1];
                     $this->browser = $val;
-                    $this->_set_mobile();
+                    $this->setMobile();
                     return true;
                 }
             }
@@ -262,7 +261,7 @@ class UserAgent
      * @access    private
      * @return    bool
      */
-    private function _set_robot()
+    private function setRobot()
     {
         if (is_array($this->robots) and count($this->robots) > 0) {
             foreach ($this->robots as $key => $val) {
@@ -284,7 +283,7 @@ class UserAgent
      * @access    private
      * @return    bool
      */
-    private function _set_mobile()
+    private function setMobile()
     {
         if (is_array($this->mobiles) and count($this->mobiles) > 0) {
             foreach ($this->mobiles as $key => $val) {
@@ -306,9 +305,11 @@ class UserAgent
      * @access    private
      * @return    void
      */
-    private function _set_languages()
+    private function setLanguages()
     {
-        if ((count($this->languages) == 0) and isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) and $_SERVER['HTTP_ACCEPT_LANGUAGE'] != '') {
+        if ((count($this->languages) == 0) and
+            isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) and
+            $_SERVER['HTTP_ACCEPT_LANGUAGE'] != '') {
             $languages = preg_replace('/(;q=[0-9.]+)/i', '', strtolower(trim($_SERVER['HTTP_ACCEPT_LANGUAGE'])));
 
             $this->languages = explode(',', $languages);
@@ -327,9 +328,11 @@ class UserAgent
      * @access    private
      * @return    void
      */
-    private function _set_charsets()
+    private function setCharsets()
     {
-        if ((count($this->charsets) == 0) and isset($_SERVER['HTTP_ACCEPT_CHARSET']) and $_SERVER['HTTP_ACCEPT_CHARSET'] != '') {
+        if ((count($this->charsets) == 0) and
+            isset($_SERVER['HTTP_ACCEPT_CHARSET']) and
+            $_SERVER['HTTP_ACCEPT_CHARSET'] != '') {
             $charsets = preg_replace('/(;q=.+)/i', '', strtolower(trim($_SERVER['HTTP_ACCEPT_CHARSET'])));
 
             $this->charsets = explode(',', $charsets);
@@ -349,7 +352,7 @@ class UserAgent
      * @param null $key
      * @return    bool
      */
-    public function is_browser($key = null)
+    public function isBrowser($key = null)
     {
         if (!$this->is_browser) {
             return false;
@@ -373,7 +376,7 @@ class UserAgent
      * @param null $key
      * @return    bool
      */
-    public function is_robot($key = null)
+    public function isRobot($key = null)
     {
         if (!$this->is_robot) {
             return false;
@@ -397,7 +400,7 @@ class UserAgent
      * @param null $key
      * @return    bool
      */
-    public function is_mobile($key = null)
+    public function isMobile($key = null)
     {
         if (!$this->is_mobile) {
             return false;
@@ -420,7 +423,7 @@ class UserAgent
      * @access    public
      * @return    bool
      */
-    public function is_referral()
+    public function isReferral()
     {
         if (!isset($_SERVER['HTTP_REFERER']) or $_SERVER['HTTP_REFERER'] == '') {
             return false;
@@ -436,7 +439,7 @@ class UserAgent
      * @access    public
      * @return    string
      */
-    public function agent_string()
+    public function agentString()
     {
         return $this->agent;
     }
@@ -515,7 +518,9 @@ class UserAgent
      */
     public function referrer()
     {
-        return (!isset($_SERVER['HTTP_REFERER']) or $_SERVER['HTTP_REFERER'] == '') ? '' : trim($_SERVER['HTTP_REFERER']);
+        return (!isset($_SERVER['HTTP_REFERER']) or $_SERVER['HTTP_REFERER'] == '') ?
+            '' :
+            trim($_SERVER['HTTP_REFERER']);
     }
 
     // --------------------------------------------------------------------
@@ -529,7 +534,7 @@ class UserAgent
     public function languages()
     {
         if (count($this->languages) == 0) {
-            $this->_set_languages();
+            $this->setLanguages();
         }
 
         return $this->languages;
@@ -546,7 +551,7 @@ class UserAgent
     public function charsets()
     {
         if (count($this->charsets) == 0) {
-            $this->_set_charsets();
+            $this->setCharsets();
         }
 
         return $this->charsets;
@@ -561,7 +566,7 @@ class UserAgent
      * @param string $lang
      * @return    bool
      */
-    public function accept_lang($lang = 'en')
+    public function acceptLang($lang = 'en')
     {
         return (in_array(strtolower($lang), $this->languages(), true));
     }
@@ -575,7 +580,7 @@ class UserAgent
      * @param string $charset
      * @return    bool
      */
-    public function accept_charset($charset = 'utf-8')
+    public function acceptCharset($charset = 'utf-8')
     {
         return (in_array(strtolower($charset), $this->charsets(), true));
     }

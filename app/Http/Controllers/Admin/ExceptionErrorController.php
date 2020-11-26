@@ -9,7 +9,6 @@ use App\Http\Requests\Admin\ExceptionError\GetListRequest;
 use App\Http\Response\ApiCode;
 use App\Models\ExceptionError;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;

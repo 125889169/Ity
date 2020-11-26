@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Util;
-
 
 use App\Http\Requests\Admin\FileSystem\UploadRequest;
 use Illuminate\Support\Carbon;
@@ -58,7 +56,7 @@ class FileSystem
     {
         $data = $this->directories()->merge($this->files());
         if ($search !== null && $search !== '') {
-            $data = $data->filter(function ($value, $key) use ($search) {
+            $data = $data->filter(function ($value) use ($search) {
                 return Str::contains($value['name'], $search);
             });
         }
@@ -104,7 +102,7 @@ class FileSystem
             ];
         }
         $files = collect($files);
-        $files = $files->reject(function ($value, $key) {
+        $files = $files->reject(function ($value) {
             return $value['name'] === '.gitignore';
         });
         return $files;
@@ -216,7 +214,9 @@ class FileSystem
     private function formatBytes(int $size): string
     {
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        for ($i = 0; $size >= 1024 && $i < 4; $i++) $size /= 1024;
+        for ($i = 0; $size >= 1024 && $i < 4; $i++) {
+            $size /= 1024;
+        }
         return round($size, 3) . $units[$i];
     }
 
@@ -272,6 +272,4 @@ class FileSystem
         $this->diskName = $diskName;
         return $this;
     }
-
-
 }

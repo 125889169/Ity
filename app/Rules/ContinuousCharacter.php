@@ -37,11 +37,7 @@ class ContinuousCharacter implements Rule
      */
     public function passes($attribute, $value)
     {
-        try {
-            return !preg_match("/{$this->str}{2}/", $value);
-        } catch (\ErrorException $exception) {
-            return false;
-        }
+        return !preg_match("/{$this->str}{2}/", $value);
     }
 
     /**

@@ -155,7 +155,7 @@ class Admin extends Authenticatable implements JWTSubject
      * @param array $data
      * @return array
      */
-    public static function _update(array $data): array
+    public static function updateSave(array $data): array
     {
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);

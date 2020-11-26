@@ -5,7 +5,6 @@ namespace App\Http\Requests\Admin\FileSystem;
 use App\Rules\ContinuousCharacter;
 use App\Rules\Directory\ParentDirectory;
 use App\Rules\EmojiChar;
-use App\Rules\UnStartsWith;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateDirectoryRequest extends FormRequest
@@ -28,7 +27,14 @@ class CreateDirectoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'directory' => ['required', 'string', 'between:1,60', new EmojiChar, new ParentDirectory, new ContinuousCharacter],
+            'directory' => [
+                'required',
+                'string',
+                'between:1,60',
+                new EmojiChar,
+                new ParentDirectory,
+                new ContinuousCharacter
+            ],
         ];
     }
 

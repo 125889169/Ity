@@ -12,6 +12,7 @@ use App\Http\Response\ApiCode;
 use App\Models\Admin;
 use App\Models\Permission;
 use App\Notifications\PermissionChange;
+use Exception;
 use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,9 +96,8 @@ class AdminController extends Controller
     public function update(UpdateRequest $request): Response
     {
         $validated = $request->validated();
-        $resultData = Admin::_update($validated);
+        $resultData = Admin::updateSave($validated);
         if ($resultData['result']) {
-
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withData($resultData['admin'])
@@ -109,7 +109,6 @@ class AdminController extends Controller
             ->withHttpCode(ApiCode::HTTP_BAD_REQUEST)
             ->withMessage(__('message.common.update.fail'))
             ->build();
-
     }
 
 
@@ -118,6 +117,7 @@ class AdminController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function delete(Request $request): Response
     {
@@ -152,10 +152,10 @@ class AdminController extends Controller
         if ($validated['id'] === 8) {
             return ResponseBuilder::asError(ApiCode::HTTP_BAD_REQUEST)
                 ->withHttpCode(ApiCode::HTTP_BAD_REQUEST)
-                ->withMessage('测试账号不能修改密码')
+                ->withMessage('测试账号不能修改信息')
                 ->build();
         }
-        $resultData = Admin::_update($validated);
+        $resultData = Admin::updateSave($validated);
         if ($resultData['result']) {
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)

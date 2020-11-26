@@ -13,6 +13,7 @@ use App\Http\Response\ApiCode;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Notifications\RoleChange;
+use Exception;
 use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
@@ -146,7 +147,7 @@ class RoleController extends Controller
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withMessage(__('message.common.delete.success'))
                 ->build();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return ResponseBuilder::asError(ApiCode::HTTP_BAD_REQUEST)
                 ->withHttpCode(ApiCode::HTTP_BAD_REQUEST)
                 ->withMessage(__('message.common.delete.fail'))

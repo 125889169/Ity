@@ -28,7 +28,14 @@ class UploadRequest extends FormRequest
     {
         return [
             'file' => ['required', 'file'],
-            'directory' => ['required', 'string', 'between:1,60', new EmojiChar, new ParentDirectory, new ContinuousCharacter],
+            'directory' => [
+                'required',
+                'string',
+                'between:1,60',
+                new EmojiChar,
+                new ParentDirectory,
+                new ContinuousCharacter
+            ],
             'name' => ['nullable', 'min:1', 'max:1023']
         ];
     }

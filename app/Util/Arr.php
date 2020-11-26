@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Util;
-
 
 class Arr
 {
@@ -15,10 +13,13 @@ class Arr
      * @param string $nodes
      * @return array
      */
-    public static function getTree
-    (array $data, int $increment = 0,
-     string $id = 'id', string $pid = 'pid', string $nodes = 'children'): array
-    {
+    public static function getTree(
+        array $data,
+        int $increment = 0,
+        string $id = 'id',
+        string $pid = 'pid',
+        string $nodes = 'children'
+    ): array {
         $ret = [];
         foreach ($data as $key => $value) {
             if ($value[$pid] === $increment) {

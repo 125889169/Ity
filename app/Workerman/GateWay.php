@@ -3,7 +3,8 @@
 
 namespace App\Workerman;
 
-use GatewayWorker\Lib\Gateway AS LibGateWay;
+use Exception;
+use GatewayWorker\Lib\Gateway as LibGateWay;
 use GuzzleHttp\Utils;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +17,7 @@ class GateWay extends LibGateWay
     /**
      * @return LoggerInterface
      */
-    public static function Log(): LoggerInterface
+    public static function log(): LoggerInterface
     {
         return Log::channel('workerman');
     }
@@ -60,12 +61,15 @@ class GateWay extends LibGateWay
 
     /**
      * @param HttpResponse $response
-     * @param array $clientId
+     * @param array|null $clientId
      * @param array|null $excludeClientId
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function sendResponseToAll(HttpResponse $response, array $clientId = null, array $excludeClientId = null): void
-    {
+    public static function sendResponseToAll(
+        HttpResponse $response,
+        array $clientId = null,
+        array $excludeClientId = null
+    ): void {
         parent::sendToAll($response->getContent(), $clientId, $excludeClientId);
     }
 

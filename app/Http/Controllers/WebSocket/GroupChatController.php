@@ -4,10 +4,11 @@ namespace App\Http\Controllers\WebSocket;
 
 use App\Http\Response\ApiCode;
 use App\Workerman\GateWay;
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
+use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Class GroupChatController 测试内容可删除 WebSocket
@@ -41,8 +42,8 @@ class GroupChatController extends WebSocketController
                 Cache::store('redis')->put('groupChat', $merged);
             }
             GateWay::sendResponseToAll($response);
-        } catch (\Exception $e) {
-
+        } catch (Exception $e) {
+        } catch (InvalidArgumentException $e) {
         }
     }
 
@@ -58,21 +59,24 @@ class GroupChatController extends WebSocketController
                 ->withMessage(__('message.common.search.success'))
                 ->build();
             GateWay::sendResponseToAll($response);
-        } catch (\Exception $e) {
-
+        } catch (Exception $e) {
         }
     }
 
     public function getChatRecord()
     {
-        $groupChat = Cache::store('redis')->get('groupChat', collect());
-        $response = ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
-            ->withData([
-                'type' => __FUNCTION__,
-                'groupChat' => $groupChat
-            ])
-            ->withMessage(__('message.common.search.success'))
-            ->build();
-        GateWay::sendResponseToAll($response);
+        try {
+            $groupChat = Cache::store('redis')->get('groupChat', collect());
+            $response = ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
+                ->withData([
+                    'type' => __FUNCTION__,
+                    'groupChat' => $groupChat
+                ])
+                ->withMessage(__('message.common.search.success'))
+                ->build();
+            GateWay::sendResponseToAll($response);
+        } catch (Exception $e) {
+        } catch (InvalidArgumentException $e) {
+        }
     }
 }

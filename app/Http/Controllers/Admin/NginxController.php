@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\Nginx\GetListRequest;
 use App\Http\Response\ApiCode;
 use App\Util\NginxLog;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -36,19 +35,25 @@ class NginxController extends Controller
             $logs = $logs->when(isset($validated['uri']), function ($logs) use ($validated) {
                 return $logs->where('uri', $validated['uri']);
             });
-            $logs = $logs->when(isset($validated['is_warning']) && $validated['is_warning'] !== null, function ($logs) use ($validated) {
+            $warningValue = isset($validated['is_warning']) && $validated['is_warning'] !== null;
+            $logs = $logs->when($warningValue, function ($logs) use ($validated) {
                 return $logs->where('is_warning', $validated['is_warning'] ? true : false);
             });
-            $logs = $logs->when(isset($validated['is_error']) && $validated['is_error'] !== null, function ($logs) use ($validated) {
+            $isErrorValue = isset($validated['is_error']) && $validated['is_error'] !== null;
+            $logs = $logs->when($isErrorValue, function ($logs) use ($validated) {
                 return $logs->where('is_error', $validated['is_error'] ? true : false);
             });
-            $logs = $logs->when(isset($validated['is_robot']) && $validated['is_robot'] !== null, function ($logs) use ($validated) {
+            $isRobotValue = isset($validated['is_robot']) && $validated['is_robot'] !== null;
+            $logs = $logs->when($isRobotValue, function ($logs) use ($validated) {
                 return $logs->where('is_robot', $validated['is_robot'] ? true : false);
             });
-            $logs = $logs->when(isset($validated['is_mobile']) && $validated['is_mobile'] !== null, function ($logs) use ($validated) {
+            $isMobileValue = isset($validated['is_mobile']) && $validated['is_mobile'] !== null;
+            $logs = $logs->when($isMobileValue, function ($logs) use ($validated) {
                 return $logs->where('is_mobile', $validated['is_mobile'] ? true : false);
             });
-            $logs = $logs->when(isset($validated['start_at']) && $validated['start_at'] !== null && isset($validated['end_at']) && $validated['end_at'] !== null, function ($logs) use ($validated) {
+            $timeValue = isset($validated['start_at']) && $validated['start_at'] !== null &&
+                isset($validated['end_at']) && $validated['end_at'] !== null;
+            $logs = $logs->when($timeValue, function ($logs) use ($validated) {
                 return $logs->whereBetween('time', [$validated['start_at'], $validated['end_at']]);
             });
             $total = $logs->count();
