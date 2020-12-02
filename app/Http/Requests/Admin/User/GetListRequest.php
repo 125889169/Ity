@@ -25,11 +25,7 @@ class GetListRequest extends FormRequest
     public function rules()
     {
         return array_merge((new CommonRequest())->rules(), [
-            'name' => [
-                'nullable',
-                'string',
-                'between:1,60',
-            ],
+            'name' => ['nullable', 'string', 'between:1,60',],
         ]);
     }
 

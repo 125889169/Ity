@@ -26,26 +26,10 @@ class GetListRequest extends FormRequest
     public function rules()
     {
         return array_merge((new CommonRequest())->rules(), [
-            'name' => [
-                'nullable',
-                'string',
-                'between:2,60',
-            ],
-            'title' => [
-                'nullable',
-                'string',
-                'between:2,60',
-            ],
-            'path' => [
-                'nullable',
-                'string',
-                'between:2,60',
-            ],
-            'guard_name' => [
-                'required',
-                'string',
-                Rule::in(['api', 'admin']),
-            ],
+            'name' => ['nullable', 'string', 'between:2,60',],
+            'title' => ['nullable', 'string', 'between:2,60',],
+            'path' => ['nullable', 'string', 'between:2,60',],
+            'guard_name' => ['required', 'string', Rule::in(['api', 'admin']),],
         ]);
     }
 

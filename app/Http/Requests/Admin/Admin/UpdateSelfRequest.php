@@ -28,8 +28,12 @@ class UpdateSelfRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('admins')->ignore($this->user('admin')), 'between:2,60'],
-            'email' => ['required', 'string', 'email', Rule::unique('admins')->ignore($this->user('admin')), 'between:2,60'],
+            'name' => [
+                'required', 'string', Rule::unique('admins')->ignore($this->user('admin')), 'between:2,60'
+            ],
+            'email' => [
+                'required', 'string', 'email', Rule::unique('admins')->ignore($this->user('admin')), 'between:2,60'
+            ],
             'password' => ['nullable', 'string', 'between:6,60'],
         ];
     }

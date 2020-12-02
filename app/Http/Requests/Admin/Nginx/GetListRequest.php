@@ -28,42 +28,15 @@ class GetListRequest extends FormRequest
             'limit' => ['required', 'numeric', 'gte:1', 'lte:50'],
             'start_at' => ['required_with:end_at', 'date_format:Y-m-d H:i:s', 'before_or_equal:end_at'],
             'end_at' => ['required_with:start_at', 'date_format:Y-m-d H:i:s', 'after_or_equal:start_at'],
-            'file' => [
-                'required',
-                'string',
-            ],
-            'ip' => [
-                'nullable',
-                'string',
-            ],
-            'method' => [
-                'nullable',
-                'string',
-            ],
-            'uri' => [
-                'nullable',
-                'string',
-            ],
-            'http_code' => [
-                'nullable',
-                'string',
-            ],
-            'is_warning' => [
-                'nullable',
-                'boolean',
-            ],
-            'is_error' => [
-                'nullable',
-                'boolean',
-            ],
-            'is_robot' => [
-                'nullable',
-                'boolean',
-            ],
-            'is_mobile' => [
-                'nullable',
-                'boolean',
-            ],
+            'file' => ['required', 'string',],
+            'ip' => ['nullable', 'string',],
+            'method' => ['nullable', 'string',],
+            'uri' => ['nullable', 'string',],
+            'http_code' => ['nullable', 'string',],
+            'is_warning' => ['nullable', 'boolean',],
+            'is_error' => ['nullable', 'boolean',],
+            'is_robot' => ['nullable', 'boolean',],
+            'is_mobile' => ['nullable', 'boolean',],
         ];
     }
 

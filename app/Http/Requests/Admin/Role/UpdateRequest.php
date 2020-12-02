@@ -35,22 +35,9 @@ class UpdateRequest extends FormRequest
     {
         $tableNames = config('permission.table_names');
         return [
-            'id' => [
-                'required',
-                'integer',
-            ],
-            'name' => [
-                'required',
-                'string',
-                'between:2,60',
-                Rule::unique($tableNames['roles'])->ignore($this->role),
-            ],
-            'guard_name' => [
-                'required',
-                'string',
-                'between:2,60',
-                Rule::in(['api', 'admin']),
-            ],
+            'id' => ['required', 'integer',],
+            'name' => ['required', 'string', 'between:2,60', Rule::unique($tableNames['roles'])->ignore($this->role),],
+            'guard_name' => ['required', 'string', 'between:2,60', Rule::in(['api', 'admin']),],
         ];
     }
 

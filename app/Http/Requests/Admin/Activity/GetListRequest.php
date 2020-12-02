@@ -25,34 +25,13 @@ class GetListRequest extends FormRequest
     public function rules()
     {
         return array_merge((new CommonRequest())->rules(), [
-            'log_name' => [
-                'nullable',
-                'string',
-            ],
-            'description' => [
-                'nullable',
-                'string',
-            ],
-            'subject_id' => [
-                'nullable',
-                'string',
-            ],
-            'subject_type' => [
-                'nullable',
-                'string',
-            ],
-            'causer_id' => [
-                'nullable',
-                'string',
-            ],
-            'causer_type' => [
-                'nullable',
-                'string',
-            ],
-            'properties' => [
-                'nullable',
-                'string',
-            ],
+            'log_name' => ['nullable', 'string',],
+            'description' => ['nullable', 'string',],
+            'subject_id' => ['nullable', 'string',],
+            'subject_type' => ['nullable', 'string',],
+            'causer_id' => ['nullable', 'string',],
+            'causer_type' => ['nullable', 'string',],
+            'properties' => ['nullable', 'string',],
         ]);
     }
 

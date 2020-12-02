@@ -26,15 +26,8 @@ class GetListRequest extends FormRequest
     public function rules()
     {
         return array_merge((new CommonRequest())->rules(), [
-            'message' => [
-                'nullable',
-                'string',
-            ],
-            'is_read' => [
-                'nullable',
-                'integer',
-                Rule::in(0, 1)
-            ],
+            'message' => ['nullable', 'string',],
+            'is_read' => ['nullable', 'integer', Rule::in(0, 1)],
         ]);
     }
 

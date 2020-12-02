@@ -26,18 +26,8 @@ class CreateRequest extends FormRequest
     {
         $tableNames = config('permission.table_names');
         return [
-            'name' => [
-                'required',
-                'string',
-                'between:2,60',
-                'unique:' . $tableNames['roles'],
-            ],
-            'guard_name' => [
-                'required',
-                'string',
-                'between:2,60',
-                Rule::in(['api', 'admin']),
-            ],
+            'name' => ['required', 'string', 'between:2,60', 'unique:' . $tableNames['roles'],],
+            'guard_name' => ['required', 'string', 'between:2,60', Rule::in(['api', 'admin']),],
         ];
     }
 

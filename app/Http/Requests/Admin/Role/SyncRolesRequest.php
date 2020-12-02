@@ -28,20 +28,9 @@ class SyncRolesRequest extends FormRequest
     public function rules()
     {
         return [
-            'guard_name' => [
-                'required',
-                'string',
-                'between:2,60',
-                Rule::in(['api', 'admin']),
-            ],
-            'guard_id' => [
-                'required',
-                'integer',
-                'exists:' . $this->guardName() . ',id'
-            ],
-            'roles' => [
-                'array'
-            ]
+            'guard_name' => ['required', 'string', 'between:2,60', Rule::in(['api', 'admin']),],
+            'guard_id' => ['required', 'integer', 'exists:' . $this->guardName() . ',id'],
+            'roles' => ['array']
         ];
     }
 

@@ -28,12 +28,7 @@ class DeleteDirectoryRequest extends FormRequest
     {
         return [
             'directory' => [
-                'required',
-                'string',
-                'between:1,60',
-                new EmojiChar,
-                new ParentDirectory,
-                new ContinuousCharacter
+                'required', 'string', 'between:1,60', new EmojiChar, new ParentDirectory, new ContinuousCharacter
             ],
         ];
     }

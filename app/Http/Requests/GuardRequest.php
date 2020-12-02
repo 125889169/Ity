@@ -28,17 +28,8 @@ class GuardRequest extends FormRequest
     public function rules()
     {
         return [
-            'guard_name' => [
-                'required',
-                'string',
-                'between:2,60',
-                Rule::in(['api', 'admin']),
-            ],
-            'guard_id' => [
-                'required',
-                'integer',
-                'exists:' . $this->guardName() . ',id'
-            ],
+            'guard_name' => ['required', 'string', 'between:2,60', Rule::in(['api', 'admin']),],
+            'guard_id' => ['required', 'integer', 'exists:' . $this->guardName() . ',id'],
         ];
     }
 

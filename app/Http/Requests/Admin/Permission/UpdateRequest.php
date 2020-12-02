@@ -36,59 +36,25 @@ class UpdateRequest extends FormRequest
     {
         $tableNames = config('permission.table_names');
         return [
-            'id' => [
-                'required',
-                'integer',
-            ],
+            'id' => ['required', 'integer',],
             'pid' => [
-                'nullable',
-                'integer',
-                'different:id',
+                'nullable', 'integer', 'different:id',
                 'exists:' . $tableNames['permissions'] . ',id',
             ],
             'name' => [
-                'required',
-                'string',
-                'between:2,60',
+                'required', 'string', 'between:2,60',
                 Rule::unique($tableNames['permissions'])->ignore($this->permission),
             ],
-            'title' => [
-                'required',
-                'string',
-                'between:2,60',
-            ],
-            'icon' => [
-                'required',
-                'string',
-                'between:2,60',
-            ],
+            'title' => ['required', 'string', 'between:2,60',],
+            'icon' => ['required', 'string', 'between:2,60',],
             'path' => [
-                'required',
-                'string',
-                'between:2,60',
+                'required', 'string', 'between:2,60',
                 Rule::unique($tableNames['permissions'])->ignore($this->permission),
             ],
-            'component' => [
-                'required',
-                'string',
-                'between:2,60',
-            ],
-            'guard_name' => [
-                'required',
-                'string',
-                'between:2,60',
-                Rule::in(['api', 'admin']),
-            ],
-            'sort' => [
-                'nullable',
-                'numeric',
-                'between:1,999',
-            ],
-            'hidden' => [
-                'nullable',
-                'numeric',
-                'between:0,1',
-            ],
+            'component' => ['required', 'string', 'between:2,60',],
+            'guard_name' => ['required', 'string', 'between:2,60', Rule::in(['api', 'admin']),],
+            'sort' => ['nullable', 'numeric', 'between:1,999',],
+            'hidden' => ['nullable', 'numeric', 'between:0,1',],
         ];
     }
 

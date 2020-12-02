@@ -12,6 +12,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /**
+     * homePage
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function home()
     {
         View::addExtension('html', 'php');

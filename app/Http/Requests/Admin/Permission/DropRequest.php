@@ -26,22 +26,9 @@ class DropRequest extends FormRequest
     {
         $tableNames = config('permission.table_names');
         return [
-            'dragging' => [
-                'required',
-                'integer',
-                'exists:' . $tableNames['permissions'] . ',id',
-            ],
-            'drop' => [
-                'required',
-                'integer',
-                'different:dragging',
-                'exists:' . $tableNames['permissions'] . ',id',
-            ],
-            'type' => [
-                'required',
-                'string',
-                Rule::in(['before', 'after', 'inner']),
-            ],
+            'dragging' => ['required', 'integer', 'exists:' . $tableNames['permissions'] . ',id',],
+            'drop' => ['required', 'integer', 'different:dragging', 'exists:' . $tableNames['permissions'] . ',id',],
+            'type' => ['required', 'string', Rule::in(['before', 'after', 'inner']),],
         ];
     }
 

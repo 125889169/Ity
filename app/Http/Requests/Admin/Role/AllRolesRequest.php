@@ -25,11 +25,7 @@ class AllRolesRequest extends FormRequest
     public function rules()
     {
         return [
-            'guard_name' => [
-                'required',
-                'string',
-                Rule::in(['api', 'admin']),
-            ]
+            'guard_name' => ['required', 'string', Rule::in(['api', 'admin']),]
         ];
     }
 

@@ -25,14 +25,8 @@ class SyncPermissionsRequest extends FormRequest
     {
         $tableNames = config('permission.table_names');
         return [
-            'id' => [
-                'required',
-                'integer',
-                'exists:' . $tableNames['roles']
-            ],
-            'permissions' => [
-                'array'
-            ]
+            'id' => ['required', 'integer', 'exists:' . $tableNames['roles']],
+            'permissions' => ['array']
         ];
     }
 

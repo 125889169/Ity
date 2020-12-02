@@ -24,15 +24,8 @@ class AmendedRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => [
-                'required',
-                'string',
-                'exists:exception_errors',
-            ],
-            'solve' => [
-                'required',
-                'integer',
-            ]
+            'id' => ['required', 'string', 'exists:exception_errors',],
+            'solve' => ['required', 'integer',]
         ];
     }
 

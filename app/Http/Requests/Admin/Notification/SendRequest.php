@@ -24,14 +24,8 @@ class SendRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => [
-                'required',
-                'string',
-                'min:10'
-            ],
-            'admins' => [
-                'array'
-            ]
+            'message' => ['required', 'string', 'min:10'],
+            'admins' => ['array']
         ];
     }
 

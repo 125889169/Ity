@@ -24,14 +24,8 @@ class SyncPermissionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => [
-                'required',
-                'integer',
-                'exists:admins'
-            ],
-            'permissions' => [
-                'array'
-            ]
+            'id' => ['required', 'integer', 'exists:admins'],
+            'permissions' => ['array']
         ];
     }
 
