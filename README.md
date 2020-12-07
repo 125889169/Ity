@@ -78,7 +78,7 @@ LARAVEL Notifiable Trait 搭建
 3. URI: `ws://IP:2346?lang=LANG&token=TOKEN`
 4. SEND: `{"route": "route.name", "data": data}`
 
-### 致谢
+## 致谢
 * [laravel](https://learnku.com/docs/laravel/8.x)
 * [workerman](https://github.com/walkor/workerman)
 * [techflowing](https://github.com/techflowing/Blog)
