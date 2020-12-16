@@ -104,7 +104,7 @@ class FileSystem
         $files = collect($files);
         $files = $files->reject(function ($value) {
             return $value['name'] === '.gitignore';
-        });
+        })->values();
         return $files;
     }
 
@@ -241,7 +241,7 @@ class FileSystem
     /**
      * @return mixed
      */
-    private function getDisk(): DiskFileSystem
+    public function getDisk(): DiskFileSystem
     {
         return $this->disk;
     }

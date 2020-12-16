@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\ExceptionError\FileRequest;
 use App\Http\Requests\Admin\ExceptionError\GetListRequest;
 use App\Http\Response\ApiCode;
 use App\Models\ExceptionError;
+use App\Util\FileSystem;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
@@ -56,14 +57,11 @@ class ExceptionErrorController extends Controller
      */
     public function files(): Response
     {
-        $disk = Storage::disk('logs');
-        $files = $disk->files();
-        $key = array_search('.gitignore', $files);
-        array_splice($files, $key, 1);
+        $fileSystem = new FileSystem('/', 'logs');
         return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
             ->withHttpCode(ApiCode::HTTP_OK)
             ->withData([
-                'files' => $files
+                'files' => $fileSystem->files()
             ])
             ->withMessage(__('message.common.search.success'))
             ->build();
@@ -79,7 +77,8 @@ class ExceptionErrorController extends Controller
     {
         try {
             $validated = $request->validated();
-            $contents = Storage::disk('logs')->get($validated['file']);
+            $fileSystem = new FileSystem('/', 'logs');
+            $contents = $fileSystem->getDisk()->get($validated['file']);
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withData([
