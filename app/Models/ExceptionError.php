@@ -160,7 +160,20 @@ class ExceptionError extends Model
 
         $total = $model->count('id');
 
-        $logs = $model->select(['id', 'message', 'code', 'file', 'line', 'trace', 'trace_as_string', 'is_solve', 'created_at', 'updated_at'])
+        $logs = $model->select(
+            [
+            'id',
+            'message',
+            'code',
+            'file',
+            'line',
+            'trace',
+            'trace_as_string',
+            'is_solve',
+            'created_at',
+            'updated_at'
+            ]
+        )
             ->orderBy($validated['sort'] ?? 'updated_at', $validated['order'] === 'ascending' ? 'asc' : 'desc')
             ->offset(($validated['offset'] - 1) * $validated['limit'])
             ->limit($validated['limit'])

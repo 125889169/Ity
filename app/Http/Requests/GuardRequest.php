@@ -68,11 +68,11 @@ class GuardRequest extends FormRequest
     {
         $guardName = $this->post('guard_name', '');
         switch ($guardName) {
-            case 'api' :
+            case 'api':
                 return 'App\Models\User';
-            case 'admin' :
+            case 'admin':
                 return 'App\Models\Admin';
-            default :
+            default:
                 return '';
         }
     }

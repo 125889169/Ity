@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Admin\Role;
 
+use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -61,7 +63,7 @@ class SyncRolesRequest extends FormRequest
     }
 
     /**
-     * 获取 gurad Class
+     * 获取 gurad Name
      *
      * @return string
      */
@@ -69,12 +71,32 @@ class SyncRolesRequest extends FormRequest
     {
         $guardName = $this->post('guard_name', '');
         switch ($guardName) {
-            case 'api' :
+            case 'api':
                 return 'App\Models\User';
-            case 'admin' :
+            case 'admin':
                 return 'App\Models\Admin';
-            default :
+            default:
                 return '';
+        }
+    }
+
+
+    /**
+     * 获取 gurad Name
+     *
+     * @return Admin|User|null
+     */
+    public function guard()
+    {
+        $guardName = $this->post('guard_name', '');
+        $guardId = $this->post('guard_id', '');
+        switch ($guardName) {
+            case 'api':
+                return User::find($guardId);
+            case 'admin':
+                return Admin::find($guardId);
+            default:
+                return null;
         }
     }
 }

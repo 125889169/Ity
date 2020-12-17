@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\ExceptionError;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Console\Command;
 
 class CleanExceptionErrorCommand extends Command
@@ -27,6 +28,7 @@ class CleanExceptionErrorCommand extends Command
      * Execute the console command.
      *
      * @return void
+     * @throws Exception
      */
     public function handle()
     {

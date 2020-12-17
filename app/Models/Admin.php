@@ -125,11 +125,11 @@ class Admin extends Authenticatable implements JWTSubject
             ->orderBy($validated['sort'] ?? 'created_at', $validated['order'] === 'ascending' ? 'asc' : 'desc')
             ->offset(($validated['offset'] - 1) * $validated['limit'])
             ->limit($validated['limit'])
-            ->get();
-
-        foreach ($admins as $admin) {
-            $admin->roles;
-        }
+            ->get()
+            ->map(function ($admin) {
+                $admin->roles;
+                return $admin;
+            });
 
         return [
             'admins' => $admins,

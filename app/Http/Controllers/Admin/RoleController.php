@@ -34,10 +34,9 @@ class RoleController extends Controller
             $role = Role::whereId($id)->first();
             $permissions = $role->permissions;
             $role->users;
-            $permissionIdList = [];
-            foreach ($permissions as $permission) {
-                $permissionIdList[] = $permission->id;
-            }
+            $permissionIdList = $permissions->mapWithKeys(function ($permission, $key) {
+                return [$key => $permission->id];
+            });
             $role->permissionIdList = $permissionIdList;
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
@@ -191,7 +190,7 @@ class RoleController extends Controller
     public function syncRoles(SyncRolesRequest $request): Response
     {
         $validated = $request->validated();
-        $guard = $request->guardName()::find($validated['guard_id']);
+        $guard = $request->guard();
         $roles = isset($validated['roles']) ?
             Role::whereIn('id', $validated['roles'])->get() :
             [];

@@ -47,17 +47,15 @@ class AdminController extends Controller
         $admin = Admin::find($id);
         if ($admin) {
             $admin->roles;
-            $roleIds = [];
-            foreach ($admin->roles as $role) {
-                $roleIds[] = $role->id;
-            }
-            $admin->roleIds = $roleIds;
+            $roleIds = $admin->roles->mapWithKeys(function ($role, $key) {
+                return [$key => $role->id];
+            });
             $admin->permissions;
-            $permissionIds = [];
-            foreach ($admin->permissions as $permission) {
-                $permissionIds[] = $permission->id;
-            }
-            $admin->permissionIds = $permissionIds;
+            $permissionIds = $admin->permissions->mapWithKeys(function ($permission, $key) {
+                return [$key => $permission->id];
+            });
+            $admin['roleIds'] = $roleIds;
+            $admin['permissionIds'] = $permissionIds;
             return ResponseBuilder::asSuccess(ApiCode::HTTP_OK)
                 ->withHttpCode(ApiCode::HTTP_OK)
                 ->withData($admin)

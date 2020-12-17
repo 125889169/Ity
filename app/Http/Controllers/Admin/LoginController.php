@@ -52,13 +52,11 @@ class LoginController extends Controller
         $user = $this->guard()->user();
         // 对应路由
         $accessedRoutes = (new Routes($user))->routes();
-        $user->accessedRoutes = $accessedRoutes;
-        $roles = $user->roles->toArray();
-        foreach ($roles as $key => $role) {
-            $roles[$key] = $role['id'];
-        }
-        array_unshift($roles, 'App\Models\Admin\\' . $user->id);
+        $roles = $user->roles->mapWithKeys(function ($role, $key) {
+            return [$key => $role->id];
+        })->prepend('App\Models\Admin\\' . $user->id);
         unset($user->roles);
+        $user['accessedRoutes'] = $accessedRoutes;
         // 对应角色
         $user['roles'] = $roles;
         // 未读消息数
@@ -134,7 +132,7 @@ class LoginController extends Controller
      *
      * @return array
      */
-    protected function respondWithTokenData($token): array
+    protected function respondWithTokenData(string $token): array
     {
         return [
             'access_token' => $token,

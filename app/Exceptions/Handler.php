@@ -10,11 +10,14 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Foundation\Http\Exceptions\MaintenanceModeException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -55,7 +58,6 @@ class Handler extends ExceptionHandler
         return $exception instanceof UnauthorizedHttpException ||
             $exception instanceof AuthenticationException ||
             $exception instanceof UnauthorizedException;
-
     }
 
     /**
@@ -137,7 +139,7 @@ class Handler extends ExceptionHandler
                 ]);
                 $this->setLogId($log->getId());
             } catch (Exception $e) {
-
+                Log::error($e);
             }
         }
     }
@@ -173,10 +175,10 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param \Throwable $exception
+     * @param Throwable $exception
      * @return void
      *
-     * @throws Exception
+     * @throws Exception|Throwable
      */
     public function report(Throwable $exception)
     {
@@ -188,11 +190,11 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Throwable $exception
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param Throwable $exception
+     * @return Response
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function render($request, Throwable $exception)
     {

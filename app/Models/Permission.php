@@ -162,7 +162,7 @@ class Permission extends \Spatie\Permission\Models\Permission
             case 'inner':
                 $update = ['pid' => $drop];
                 break;
-            case 'after' :
+            case 'after':
                 $dropPermission = Permission::where('id', $drop)->get(['sort', 'pid'])->first();
                 $sort = $dropPermission->sort;
                 $update = ['sort' => ($sort - 1) < 1 ? 1 : $sort - 1, 'pid' => $dropPermission->pid];
